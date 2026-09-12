@@ -5,7 +5,7 @@
 ### 当前状态
 
 - 当前阶段：P3，T01—T07 及 T09—T10 工程交付已完成（T08 可选、未实施）；T07 标签仍为 provisional。交付范围按用户最新选择限定为本地试用，不越过 T11 的实际试用门槛。
-- GitHub 交付：已按用户授权推送到私有仓库 [qweqwe12382/sunsetguard-api-evidence](https://github.com/qweqwe12382/sunsetguard-api-evidence)，当前 `main` 指向提交 `754349a088cd863d4b42fec1d607282312f71bb0`；仓库可见性为 private，尚未公开发布。
+- GitHub 交付：已按用户授权推送到私有仓库 [qweqwe12382/sunsetguard-api-evidence](https://github.com/qweqwe12382/sunsetguard-api-evidence)，当前 `main` 指向提交 `af5eeb7174574cb9ff3646e4ec6a9d1259fef9d7`；仓库可见性为 private，尚未公开发布。
 - 目标复核（2026-09-12 晚）：用户确认的“可本地试用”阶段目标已达成；PROJECT_REPORT 的 P3 维护者真实任务门槛仍未验证，不能把工程交付完成写成整个项目落地或全部产品验收完成。最新独立复验见 artifacts/local-install-J5vlT6/checks.json。
 - 最近完成任务：T10 本地交付补充；首个解析诊断位置、带编译产物的私有目录包与独立运行验收。原有明确清单、批量 CLI、缓存、离线重放及 Markdown 保持可用。
 - 产品源码：单目标单目录/批量 CLI、本地/公开 GitHub 快照、四类引用证据、有限配置归因、隔离分析线程、JSON/文本/Markdown、安全外部报告、固定样本评估与有界缓存。
@@ -21,7 +21,7 @@
 用户明确要求将项目上传到其 GitHub 账号，并允许由我命名新项目。本次选用 `sunsetguard-api-evidence`，因为它同时表达项目名称和用途；创建前确认账号已有登录状态且该名称未占用。
 
 - 创建仓库：`gh repo create qweqwe12382/sunsetguard-api-evidence --private --source . --remote origin --push`；远端地址为 https://github.com/qweqwe12382/sunsetguard-api-evidence。
-- 首次提交：`754349a088cd863d4b42fec1d607282312f71bb0`，分支为 `main`；远端 `main` 与本地提交逐字一致。
+- 初始代码提交：`754349a088cd863d4b42fec1d607282312f71bb0`；随后以 `af5eeb7174574cb9ff3646e4ec6a9d1259fef9d7` 补充上传记录，当前分支为 `main`，远端与本地最新提交逐字一致。
 - 上传范围：125 个已跟踪文件，包括 README、TypeScript 源码、测试、文档、示例、基准记录、脚本、pnpm 锁文件和项目配置。远端树复核包含 README、源码、测试和锁文件。
 - 排除范围：`node_modules/`、`dist/`、`artifacts/`、测试临时目录、`.env*`、日志、试用压缩包，以及本地 `AGENTS.md`、`CODEX_START.md`、`START_HERE.md`、`prompts/` 和原始根目录完整指南；这些文件没有上传。GitHub 远端未发现依赖目录、构建目录、缓存、压缩包或环境文件。
 - 推送后检查：类型检查退出 0；代码检查退出 0；全量测试 36 个文件、513 passed / 1 skipped，共 514；远端默认分支和提交树核对通过。Windows 文件 symlink 权限用例仍为唯一跳过项。
