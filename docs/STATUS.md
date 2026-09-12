@@ -5,7 +5,7 @@
 ### 当前状态
 
 - 当前阶段：P3，T01—T07 及 T09—T10 工程交付已完成（T08 可选、未实施）；T07 标签仍为 provisional。交付范围按用户最新选择限定为本地试用，不越过 T11 的实际试用门槛。
-- GitHub 交付：已按用户授权推送到私有仓库 [qweqwe12382/sunsetguard-api-evidence](https://github.com/qweqwe12382/sunsetguard-api-evidence)，当前 `main` 指向提交 `af5eeb7174574cb9ff3646e4ec6a9d1259fef9d7`；仓库可见性为 private，尚未公开发布。
+- GitHub 交付：已按用户授权推送到仓库 [qweqwe12382/sunsetguard-api-evidence](https://github.com/qweqwe12382/sunsetguard-api-evidence)，当前 `main` 指向提交 `b5c91d4aa542392f148fe9c9816ac499e1138174`；仓库可见性已改为 public。
 - 目标复核（2026-09-12 晚）：用户确认的“可本地试用”阶段目标已达成；PROJECT_REPORT 的 P3 维护者真实任务门槛仍未验证，不能把工程交付完成写成整个项目落地或全部产品验收完成。最新独立复验见 artifacts/local-install-J5vlT6/checks.json。
 - 最近完成任务：T10 本地交付补充；首个解析诊断位置、带编译产物的私有目录包与独立运行验收。原有明确清单、批量 CLI、缓存、离线重放及 Markdown 保持可用。
 - 产品源码：单目标单目录/批量 CLI、本地/公开 GitHub 快照、四类引用证据、有限配置归因、隔离分析线程、JSON/文本/Markdown、安全外部报告、固定样本评估与有界缓存。
@@ -14,7 +14,7 @@
 - 外部 API 实际验证：T09 单仓库和 T10 两个固定仓库的匿名 GitHub metadata/commit/tree/archive 获取成功；不代表发现服务、生产 SLA 或异常网络场景均已实测。
 - 真实下游扫描：T07 的 3 仓库 / 6 选定文件审计保留；T10 真实 CLI 获取 rc-util/reactstrap 共 601 个文件，默认 461 eligible / 460 analyzed / 1 parse failed；两仓库 unknown+partial，在线与离线结果一致。独立人工精度审计未运行，不作为通用准确率。
 - 第三方维护者试用：未验证。
-- 名称和 GitHub 账号已用于本次私有仓库交付；许可证仍未确认，npm 发布与公开可见性变更未授权。
+- 名称和 GitHub 账号已用于本次仓库交付；仓库现已公开，许可证仍未确认，npm 发布仍未处理。
 
 ### 2026-09-12 · GitHub 私有仓库上传
 
@@ -28,6 +28,12 @@
 - 当前工作区保留未跟踪的内部协作文件，不影响已推送提交；后续若要纳入仓库需单独决定。仓库仍为 private，许可证、npm 发布和公开发布没有自动处理。
 
 这次上传证明代码已落到账号的 GitHub 仓库，不证明真实维护者采用、通用分析准确率或生产部署。下一项仍是取得一次明确真实调查目标和人工核对反馈，再决定是否继续扩展功能。
+
+### 2026-09-12 · GitHub 公开可见性变更
+
+用户随后明确要求“公开”。在远端仍为私有且完成敏感内容复核后，执行 `gh repo edit qweqwe12382/sunsetguard-api-evidence --visibility public --accept-visibility-change-consequences`。GitHub API 复核返回 `visibility=PUBLIC`、`isPrivate=false`，默认分支仍为 `main`，最新提交为 `b5c91d4aa542392f148fe9c9816ac499e1138174`。
+
+公开前再次核对远端树共 125 个文件，包含 README、源码、测试和锁文件；没有 `node_modules/`、`dist/`、`artifacts/`、`.env*`、压缩包或内部协作文件。提交历史和源文件中未发现令牌、私钥或当前机器的绝对路径。公开的是项目源代码和文档，不是 npm 发布；`package.json` 仍保持 `private: true`，许可证尚未确定。
 
 ### 任务状态
 
