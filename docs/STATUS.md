@@ -5,7 +5,7 @@
 ### 当前状态
 
 - 当前阶段：P3，T01—T07 及 T09—T10 工程交付已完成（T08 可选、未实施）；T07 标签仍为 provisional。交付范围按用户最新选择限定为本地试用，不越过 T11 的实际试用门槛。
-- GitHub 交付：已按用户授权推送到仓库 [qweqwe12382/sunsetguard-api-evidence](https://github.com/qweqwe12382/sunsetguard-api-evidence)，当前 `main` 指向提交 `b5c91d4aa542392f148fe9c9816ac499e1138174`；仓库可见性已改为 public。
+- GitHub 交付：已按用户授权推送到仓库 [qweqwe12382/sunsetguard-api-evidence](https://github.com/qweqwe12382/sunsetguard-api-evidence)，当前 `main` 与本地同步；仓库可见性为 public。
 - 目标复核（2026-09-12 晚）：用户确认的“可本地试用”阶段目标已达成；PROJECT_REPORT 的 P3 维护者真实任务门槛仍未验证，不能把工程交付完成写成整个项目落地或全部产品验收完成。最新独立复验见 artifacts/local-install-J5vlT6/checks.json。
 - 最近完成任务：T10 本地交付补充；首个解析诊断位置、带编译产物的私有目录包与独立运行验收。原有明确清单、批量 CLI、缓存、离线重放及 Markdown 保持可用。
 - 产品源码：单目标单目录/批量 CLI、本地/公开 GitHub 快照、四类引用证据、有限配置归因、隔离分析线程、JSON/文本/Markdown、安全外部报告、固定样本评估与有界缓存。
@@ -34,6 +34,14 @@
 用户随后明确要求“公开”。在远端仍为私有且完成敏感内容复核后，执行 `gh repo edit qweqwe12382/sunsetguard-api-evidence --visibility public --accept-visibility-change-consequences`。GitHub API 复核返回 `visibility=PUBLIC`、`isPrivate=false`，默认分支仍为 `main`，最新提交为 `b5c91d4aa542392f148fe9c9816ac499e1138174`。
 
 公开前再次核对远端树共 125 个文件，包含 README、源码、测试和锁文件；没有 `node_modules/`、`dist/`、`artifacts/`、`.env*`、压缩包或内部协作文件。提交历史和源文件中未发现令牌、私钥或当前机器的绝对路径。公开的是项目源代码和文档，不是 npm 发布；`package.json` 仍保持 `private: true`，许可证尚未确定。
+
+### 2026-09-12 · README 精简
+
+用户要求精简 README。保留项目定位、核心能力、安装和最小示例、结果桶与退出码、安全边界、当前限制及文档入口；详细设计和验收记录继续放在 `docs/`。README 从 133 行压缩为 72 行，示例改为可直接复制的一行命令，没有改变代码、CLI 参数或数据契约。
+
+- `git diff --check`：passed。
+- 提交并推送：`42abba3`（`Simplify README`），随后状态记录继续同步到 `main`。
+- 公开仓库远端树仍为 125 个文件，未出现依赖目录、构建产物、缓存、环境文件或本地验收目录。
 
 ### 任务状态
 
