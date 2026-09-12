@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "0.1",
+  "target": { "packageName": "react-dom", "moduleSpecifier": "react-dom", "exportName": "findDOMNode" },
+  "selection": "Purposive historical file subsets selected from source before prediction; not whole repositories or an ecosystem sample.",
+  "samples": [
+    {
+      "id": "mui-v4.12.4",
+      "repository": "mui/material-ui",
+      "ref": "v4.12.4",
+      "commit": "a563a60219f7f6519fb0f34f6d8e3bf0974e6495",
+      "licenseFile": "LICENSE",
+      "sourceFiles": ["packages/material-ui/src/RootRef/RootRef.js", "packages/material-ui/src/Portal/Portal.js", "packages/material-ui/src/utils/setRef.js"]
+    },
+    {
+      "id": "rc-util-v5.39.0",
+      "repository": "react-component/util",
+      "ref": "v5.39.0",
+      "commit": "6253c1b69eaf6dbde64f32370a69df0f24865715",
+      "licenseFile": "LICENSE",
+      "sourceFiles": ["src/Dom/findDOMNode.ts", "src/Dom/canUseDom.ts"]
+    },
+    {
+      "id": "reactstrap-v8.10.1",
+      "repository": "reactstrap/reactstrap",
+      "ref": "v8.10.1",
+      "commit": "41eb0d427c3c8568948ec47880af7cb473228215",
+      "licenseFile": "LICENSE",
+      "sourceFiles": ["src/Button.js"]
+    }
+  ]
+}

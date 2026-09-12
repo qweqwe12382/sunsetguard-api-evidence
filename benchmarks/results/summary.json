@@ -1,0 +1,201 @@
+{
+  "generatedAt": "2026-09-11T15:14:54.382Z",
+  "reviewStatus": "provisional",
+  "annotationsSha256": "4f49cda48ab35e635cc4026c1c30f2aa47b091a3326f72e6abe37e9606e9a0d9",
+  "sourceLockSha256": "4ca8d48b3302138b181d97f7187ef2263fd2d1921d4d2ffd7291b6725c5672a2",
+  "sampleUnit": "One selected file subset per distinct repository; not full repositories.",
+  "selectedRepositories": 3,
+  "sourceFiles": 6,
+  "token": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0
+  },
+  "unknown": {
+    "matched": 1,
+    "missing": 0
+  },
+  "repository": {
+    "bucketMatches": 3,
+    "statusMatches": 3,
+    "detected": 1,
+    "notDetectedWithinScope": 1,
+    "unknown": 1
+  },
+  "results": [
+    {
+      "id": "mui-v4.12.4",
+      "exitCode": 0,
+      "reviewStatus": "provisional",
+      "provisional": true,
+      "notice": "Provisional metrics are not human-confirmed accuracy claims.",
+      "token": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1
+      },
+      "confirmed": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1
+      },
+      "ambiguousCandidates": {
+        "matched": 0,
+        "unexpected": 0,
+        "missed": 0
+      },
+      "attribution": {
+        "correct": 3,
+        "incorrect": 0,
+        "unassessable": 0
+      },
+      "negatives": {
+        "trueNegative": 3,
+        "falsePositive": 0,
+        "unassessable": 0,
+        "unknownMisclassifiedClean": 0
+      },
+      "unknown": {
+        "matched": 0,
+        "missing": 0
+      },
+      "repository": {
+        "expected": {
+          "bucket": "detected",
+          "status": "complete-within-scope"
+        },
+        "actual": {
+          "bucket": "detected",
+          "status": "complete-within-scope"
+        },
+        "bucketMatch": true,
+        "statusMatch": true
+      },
+      "scope": {
+        "reviewedFiles": 3,
+        "exhaustiveFiles": 3,
+        "excludedPredictions": 0
+      }
+    },
+    {
+      "id": "rc-util-v5.39.0",
+      "exitCode": 3,
+      "reviewStatus": "provisional",
+      "provisional": true,
+      "notice": "Provisional metrics are not human-confirmed accuracy claims.",
+      "token": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "confirmed": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "ambiguousCandidates": {
+        "matched": 0,
+        "unexpected": 0,
+        "missed": 0
+      },
+      "attribution": {
+        "correct": 0,
+        "incorrect": 0,
+        "unassessable": 0
+      },
+      "negatives": {
+        "trueNegative": 0,
+        "falsePositive": 0,
+        "unassessable": 2,
+        "unknownMisclassifiedClean": 0
+      },
+      "unknown": {
+        "matched": 1,
+        "missing": 0
+      },
+      "repository": {
+        "expected": {
+          "bucket": "unknown",
+          "status": "partial"
+        },
+        "actual": {
+          "bucket": "unknown",
+          "status": "partial"
+        },
+        "bucketMatch": true,
+        "statusMatch": true
+      },
+      "scope": {
+        "reviewedFiles": 2,
+        "exhaustiveFiles": 2,
+        "excludedPredictions": 0
+      }
+    },
+    {
+      "id": "reactstrap-v8.10.1",
+      "exitCode": 0,
+      "reviewStatus": "provisional",
+      "provisional": true,
+      "notice": "Provisional metrics are not human-confirmed accuracy claims.",
+      "token": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "confirmed": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "ambiguousCandidates": {
+        "matched": 0,
+        "unexpected": 0,
+        "missed": 0
+      },
+      "attribution": {
+        "correct": 0,
+        "incorrect": 0,
+        "unassessable": 0
+      },
+      "negatives": {
+        "trueNegative": 1,
+        "falsePositive": 0,
+        "unassessable": 0,
+        "unknownMisclassifiedClean": 0
+      },
+      "unknown": {
+        "matched": 0,
+        "missing": 0
+      },
+      "repository": {
+        "expected": {
+          "bucket": "not-detected-within-scope",
+          "status": "complete-within-scope"
+        },
+        "actual": {
+          "bucket": "not-detected-within-scope",
+          "status": "complete-within-scope"
+        },
+        "bucketMatch": true,
+        "statusMatch": true
+      },
+      "scope": {
+        "reviewedFiles": 1,
+        "exhaustiveFiles": 1,
+        "excludedPredictions": 0
+      }
+    }
+  ]
+}

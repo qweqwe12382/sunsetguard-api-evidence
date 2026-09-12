@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "0.1",
+  "target": {
+    "id": "react-dom::react-dom::findDOMNode",
+    "packageName": "react-dom",
+    "moduleSpecifier": "react-dom",
+    "exportName": "findDOMNode"
+  },
+  "snapshot": {
+    "snapshotId": "mui/material-ui@a563a60219f7f6519fb0f34f6d8e3bf0974e6495:selected-files",
+    "contentHash": "d40d248c4f96e9d3d0f7eb8721707660031933bc8600d33f74e95b1b3fec6cbf",
+    "scopeHash": "401adb2bded9eb1808f2f2ff36b1404eda0518f5e20717235e43cb9064416c0d",
+    "reportIdentity": {
+      "repositoryId": "local:single",
+      "sourceId": "d40d248c4f96e9d3d0f7eb8721707660031933bc8600d33f74e95b1b3fec6cbf"
+    }
+  },
+  "ruleSetVersion": "0.1.0-t07",
+  "analyzerVersion": "0.1.0-t07",
+  "analysisProfile": "module-syntax-v1",
+  "reviewStatus": "provisional",
+  "files": [
+    {
+      "file": "packages/material-ui/src/RootRef/RootRef.js",
+      "sha256": "a9cf4a6b7c4ccb3a571e319f407d93fb23bc4fcd44119ff78f4701da434e2d4d",
+      "exhaustive": true,
+      "labels": [
+        {
+          "id": "mui-v4.12.4:mount",
+          "file": "packages/material-ui/src/RootRef/RootRef.js",
+          "expected": "finding",
+          "location": {
+            "file": "packages/material-ui/src/RootRef/RootRef.js",
+            "start": {
+              "line": 45,
+              "column": 25
+            },
+            "end": {
+              "line": 45,
+              "column": 36
+            }
+          },
+          "kind": "value-reference",
+          "attribution": "manifest-corroborated",
+          "bindingLocation": {
+            "file": "packages/material-ui/src/RootRef/RootRef.js",
+            "start": {
+              "line": 2,
+              "column": 13
+            },
+            "end": {
+              "line": 2,
+              "column": 21
+            }
+          }
+        },
+        {
+          "id": "mui-v4.12.4:update",
+          "file": "packages/material-ui/src/RootRef/RootRef.js",
+          "expected": "finding",
+          "location": {
+            "file": "packages/material-ui/src/RootRef/RootRef.js",
+            "start": {
+              "line": 50,
+              "column": 26
+            },
+            "end": {
+              "line": 50,
+              "column": 37
+            }
+          },
+          "kind": "value-reference",
+          "attribution": "manifest-corroborated",
+          "bindingLocation": {
+            "file": "packages/material-ui/src/RootRef/RootRef.js",
+            "start": {
+              "line": 2,
+              "column": 13
+            },
+            "end": {
+              "line": 2,
+              "column": 21
+            }
+          }
+        },
+        {
+          "id": "mui-v4.12.4:comment",
+          "file": "packages/material-ui/src/RootRef/RootRef.js",
+          "expected": "negative",
+          "location": {
+            "file": "packages/material-ui/src/RootRef/RootRef.js",
+            "start": {
+              "line": 15,
+              "column": 25
+            },
+            "end": {
+              "line": 15,
+              "column": 36
+            }
+          }
+        },
+        {
+          "id": "mui-v4.12.4:string",
+          "file": "packages/material-ui/src/RootRef/RootRef.js",
+          "expected": "negative",
+          "location": {
+            "file": "packages/material-ui/src/RootRef/RootRef.js",
+            "start": {
+              "line": 74,
+              "column": 51
+            },
+            "end": {
+              "line": 74,
+              "column": 62
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "packages/material-ui/src/Portal/Portal.js",
+      "sha256": "0732cb51c5568f2dc83ab44e2602890f12512fa5b9d734ff094f900d214840e3",
+      "exhaustive": true,
+      "labels": [
+        {
+          "id": "mui-v4.12.4:container",
+          "file": "packages/material-ui/src/Portal/Portal.js",
+          "expected": "finding",
+          "location": {
+            "file": "packages/material-ui/src/Portal/Portal.js",
+            "start": {
+              "line": 12,
+              "column": 19
+            },
+            "end": {
+              "line": 12,
+              "column": 30
+            }
+          },
+          "kind": "value-reference",
+          "attribution": "manifest-corroborated",
+          "bindingLocation": {
+            "file": "packages/material-ui/src/Portal/Portal.js",
+            "start": {
+              "line": 2,
+              "column": 13
+            },
+            "end": {
+              "line": 2,
+              "column": 21
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "packages/material-ui/src/utils/setRef.js",
+      "sha256": "607fca2c8d1b05f79d17ebfe6c1d5e4d3174a4ca057c6ecf1acbda4ad1073d75",
+      "exhaustive": true,
+      "labels": [
+        {
+          "id": "mui-v4.12.4:helper-negative",
+          "file": "packages/material-ui/src/utils/setRef.js",
+          "expected": "negative"
+        }
+      ]
+    }
+  ],
+  "expectedRepository": {
+    "bucket": "detected",
+    "status": "complete-within-scope"
+  }
+}

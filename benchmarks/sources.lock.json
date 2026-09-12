@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "0.1",
+  "preparedAt": "2026-09-11T15:05:41.091Z",
+  "policy": {
+    "redirects": 0,
+    "credentials": "none",
+    "maxFileBytes": 262144,
+    "maxTotalBytes": 2097152,
+    "maxRequests": 64,
+    "maxTotalMs": 120000
+  },
+  "totalBytes": 42988,
+  "requests": 33,
+  "samples": [
+    {
+      "id": "mui-v4.12.4",
+      "commit": "a563a60219f7f6519fb0f34f6d8e3bf0974e6495",
+      "entries": [
+        {
+          "file": "LICENSE",
+          "status": "present",
+          "bytes": 1078,
+          "sha256": "f776953f07d3086635fd33953bcde47ba66fedaeb9a7cbc6ece2d4cb03cc56f8",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/LICENSE"
+        },
+        {
+          "file": "package.json",
+          "status": "present",
+          "bytes": 8622,
+          "sha256": "3e3958b6ad4d8128716925f752941a4464a17030131148ed2b7103d631dd9781",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/package.json"
+        },
+        {
+          "file": "packages/material-ui/package.json",
+          "status": "present",
+          "bytes": 2389,
+          "sha256": "c25b8161f6b3809610046163c7b8b18b25c89a126d41ee48b121d5641c353621",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/package.json"
+        },
+        {
+          "file": "packages/material-ui/src/Portal/Portal.js",
+          "status": "present",
+          "bytes": 3251,
+          "sha256": "0732cb51c5568f2dc83ab44e2602890f12512fa5b9d734ff094f900d214840e3",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/Portal/Portal.js"
+        },
+        {
+          "file": "packages/material-ui/src/Portal/package.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/Portal/package.json"
+        },
+        {
+          "file": "packages/material-ui/src/Portal/tsconfig.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/Portal/tsconfig.json"
+        },
+        {
+          "file": "packages/material-ui/src/RootRef/RootRef.js",
+          "status": "present",
+          "bytes": 2578,
+          "sha256": "a9cf4a6b7c4ccb3a571e319f407d93fb23bc4fcd44119ff78f4701da434e2d4d",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/RootRef/RootRef.js"
+        },
+        {
+          "file": "packages/material-ui/src/RootRef/package.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/RootRef/package.json"
+        },
+        {
+          "file": "packages/material-ui/src/RootRef/tsconfig.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/RootRef/tsconfig.json"
+        },
+        {
+          "file": "packages/material-ui/src/package.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/package.json"
+        },
+        {
+          "file": "packages/material-ui/src/tsconfig.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/tsconfig.json"
+        },
+        {
+          "file": "packages/material-ui/src/utils/package.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/utils/package.json"
+        },
+        {
+          "file": "packages/material-ui/src/utils/setRef.js",
+          "status": "present",
+          "bytes": 187,
+          "sha256": "607fca2c8d1b05f79d17ebfe6c1d5e4d3174a4ca057c6ecf1acbda4ad1073d75",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/utils/setRef.js"
+        },
+        {
+          "file": "packages/material-ui/src/utils/tsconfig.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/src/utils/tsconfig.json"
+        },
+        {
+          "file": "packages/material-ui/tsconfig.json",
+          "status": "present",
+          "bytes": 34,
+          "sha256": "df174252e5e353998ff38b17e3df72c8bb0599ba1f77ef24661efcc709f78d20",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/material-ui/tsconfig.json"
+        },
+        {
+          "file": "packages/package.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/package.json"
+        },
+        {
+          "file": "packages/tsconfig.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/packages/tsconfig.json"
+        },
+        {
+          "file": "tsconfig.json",
+          "status": "present",
+          "bytes": 993,
+          "sha256": "6a3366aa60e12b3a2b85bcc8e04d26d1abe894e3d7dff789b055022f6a56c88a",
+          "url": "https://raw.githubusercontent.com/mui/material-ui/a563a60219f7f6519fb0f34f6d8e3bf0974e6495/tsconfig.json"
+        }
+      ]
+    },
+    {
+      "id": "rc-util-v5.39.0",
+      "commit": "6253c1b69eaf6dbde64f32370a69df0f24865715",
+      "entries": [
+        {
+          "file": "LICENSE",
+          "status": "present",
+          "bytes": 1152,
+          "sha256": "f3ae1f96cf22ff7028a4a908b2bf099968391fe06785e4d830926b07e5125ea6",
+          "url": "https://raw.githubusercontent.com/react-component/util/6253c1b69eaf6dbde64f32370a69df0f24865715/LICENSE"
+        },
+        {
+          "file": "package.json",
+          "status": "present",
+          "bytes": 1812,
+          "sha256": "15032015acc1f06ea5d782f257eb50ef83001c5f1a32b814b13891f459643b1e",
+          "url": "https://raw.githubusercontent.com/react-component/util/6253c1b69eaf6dbde64f32370a69df0f24865715/package.json"
+        },
+        {
+          "file": "src/Dom/canUseDom.ts",
+          "status": "present",
+          "bytes": 152,
+          "sha256": "ecce33dff5c8056e5d0e52fb0a0a9a743f602a83dd901b181ce4b6203354ce1e",
+          "url": "https://raw.githubusercontent.com/react-component/util/6253c1b69eaf6dbde64f32370a69df0f24865715/src/Dom/canUseDom.ts"
+        },
+        {
+          "file": "src/Dom/findDOMNode.ts",
+          "status": "present",
+          "bytes": 733,
+          "sha256": "70365053ceb87be47fd6d5b4620ce897f9041d99896565f3eaada8c3c794bcd9",
+          "url": "https://raw.githubusercontent.com/react-component/util/6253c1b69eaf6dbde64f32370a69df0f24865715/src/Dom/findDOMNode.ts"
+        },
+        {
+          "file": "src/Dom/package.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/react-component/util/6253c1b69eaf6dbde64f32370a69df0f24865715/src/Dom/package.json"
+        },
+        {
+          "file": "src/Dom/tsconfig.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/react-component/util/6253c1b69eaf6dbde64f32370a69df0f24865715/src/Dom/tsconfig.json"
+        },
+        {
+          "file": "src/package.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/react-component/util/6253c1b69eaf6dbde64f32370a69df0f24865715/src/package.json"
+        },
+        {
+          "file": "src/tsconfig.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/react-component/util/6253c1b69eaf6dbde64f32370a69df0f24865715/src/tsconfig.json"
+        },
+        {
+          "file": "tsconfig.json",
+          "status": "present",
+          "bytes": 355,
+          "sha256": "7501398f9729525ca4b15a4b7931b5d62c7c64572dee712b705b83f6aca8ee8b",
+          "url": "https://raw.githubusercontent.com/react-component/util/6253c1b69eaf6dbde64f32370a69df0f24865715/tsconfig.json"
+        }
+      ]
+    },
+    {
+      "id": "reactstrap-v8.10.1",
+      "commit": "41eb0d427c3c8568948ec47880af7cb473228215",
+      "entries": [
+        {
+          "file": "LICENSE",
+          "status": "present",
+          "bytes": 1116,
+          "sha256": "67d782f06bd063f6144d0b627e682c86f5a164dcb247ff875b8bddfa2f58e273",
+          "url": "https://raw.githubusercontent.com/reactstrap/reactstrap/41eb0d427c3c8568948ec47880af7cb473228215/LICENSE"
+        },
+        {
+          "file": "package.json",
+          "status": "present",
+          "bytes": 16333,
+          "sha256": "28b8c485746060102640827df2328e3c2e7349214ae417c8ce19ead0ff37ec18",
+          "url": "https://raw.githubusercontent.com/reactstrap/reactstrap/41eb0d427c3c8568948ec47880af7cb473228215/package.json"
+        },
+        {
+          "file": "src/Button.js",
+          "status": "present",
+          "bytes": 2203,
+          "sha256": "942919899c5f269dfb7da25e46e4c8ab350b51c354b4bdcbb012ac497bc75244",
+          "url": "https://raw.githubusercontent.com/reactstrap/reactstrap/41eb0d427c3c8568948ec47880af7cb473228215/src/Button.js"
+        },
+        {
+          "file": "src/package.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/reactstrap/reactstrap/41eb0d427c3c8568948ec47880af7cb473228215/src/package.json"
+        },
+        {
+          "file": "src/tsconfig.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/reactstrap/reactstrap/41eb0d427c3c8568948ec47880af7cb473228215/src/tsconfig.json"
+        },
+        {
+          "file": "tsconfig.json",
+          "status": "absent",
+          "url": "https://raw.githubusercontent.com/reactstrap/reactstrap/41eb0d427c3c8568948ec47880af7cb473228215/tsconfig.json"
+        }
+      ]
+    }
+  ]
+}

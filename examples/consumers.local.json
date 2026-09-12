@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "0.1",
+  "repositories": [
+    { "kind": "local", "path": "../fixtures/consumer" }
+  ]
+}

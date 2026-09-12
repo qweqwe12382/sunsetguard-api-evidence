@@ -1,0 +1,180 @@
+{
+  "schemaVersion": "0.1",
+  "reportKind": "scan",
+  "analyzerVersion": "0.1.0-t07",
+  "ruleSetVersion": "0.1.0-t07",
+  "analysisProfile": "module-syntax-v1",
+  "generatedAt": "2026-09-11T15:14:52.964Z",
+  "target": {
+    "id": "react-dom::react-dom::findDOMNode",
+    "packageName": "react-dom",
+    "moduleSpecifier": "react-dom",
+    "exportName": "findDOMNode"
+  },
+  "limitations": [
+    "snapshotScope={\"extensions\":[\".ts\",\".tsx\",\".js\",\".jsx\",\".mts\",\".cts\",\".mjs\",\".cjs\"],\"excludedDirectories\":[\".cache\",\".git\",\".next\",\"build\",\"coverage\",\"dist\",\"node_modules\",\"vendor\"],\"excludedSuffixes\":[\".d.ts\",\".d.mts\",\".d.cts\"],\"directoryCaseSensitive\":false,\"followSymlinks\":false,\"respectGitignore\":false,\"limits\":{\"maxFileBytes\":2097152,\"maxTotalBytes\":52428800,\"maxFiles\":5000,\"maxEntries\":20000,\"maxDepth\":128,\"timeoutMs\":120000}}",
+    "analysisPolicy={\"limits\":{\"maxEvidenceItems\":100000,\"maxEvidenceBytes\":33554432,\"maxOldGenerationSizeMb\":128},\"mandatoryDiagnosticReserve\":\"At most three mandatory source/empty/resource diagnostics can exceed a lowered evidence budget.\",\"analyzerVersion\":\"0.1.0-t07\",\"ruleSetVersion\":\"0.1.0-t07\"}",
+    "attributionPolicy={\"limits\":{\"maxFileBytes\":262144,\"maxTotalBytes\":2097152,\"maxFiles\":128,\"maxLookups\":20000,\"maxDepth\":128,\"maxExtendsDepth\":16},\"version\":\"0.1.0-t06\"}",
+    "Module attribution uses bounded local configuration evidence and does not prove runtime package resolution.",
+    "Only captured source bytes are analyzed; downstream code and configuration are not executed.",
+    "Per-file AST work uses a terminating worker deadline; aggregate evidence limits are item and serialized-byte budgets, not an RSS guarantee.",
+    "Workspace checks use root selectors and manifests encountered alongside captured source files; exact and single-star selectors are supported, not full workspace or dependency resolution.",
+    "Snapshot filesystem I/O observes cancellation and time cooperatively between bounded operations; it is not an OS-level hard interruption.",
+    "Path identity checks detect observed changes but do not provide an atomic filesystem transaction against concurrent directory replacement.",
+    "Inventory counts are bounded observations, not totals for entries not enumerated after a limit or cancellation.",
+    "The local sourceId identifies captured source and attribution bytes; it is not a stable repository identity across scans.",
+    "Source snippets are disabled and are not included in CLI reports.",
+    "Not detected within this scope does not mean migrated, globally unused, or safe to remove."
+  ],
+  "sample": {
+    "source": "local",
+    "selected": 1,
+    "excluded": 0,
+    "attempted": 1,
+    "knownTotal": 1,
+    "knownTotalUnit": "repositories",
+    "exclusionReasons": {}
+  },
+  "summary": {
+    "detected": 1,
+    "notDetectedWithinScope": 0,
+    "unknown": 0,
+    "completeWithinScope": 1,
+    "partial": 0,
+    "failed": 0
+  },
+  "results": [
+    {
+      "repositoryId": "local:single",
+      "targetId": "react-dom::react-dom::findDOMNode",
+      "snapshot": {
+        "kind": "local",
+        "sourceId": "d40d248c4f96e9d3d0f7eb8721707660031933bc8600d33f74e95b1b3fec6cbf",
+        "contentHash": "d40d248c4f96e9d3d0f7eb8721707660031933bc8600d33f74e95b1b3fec6cbf",
+        "scopeHash": "401adb2bded9eb1808f2f2ff36b1404eda0518f5e20717235e43cb9064416c0d"
+      },
+      "status": "complete-within-scope",
+      "bucket": "detected",
+      "inventory": {
+        "discoveredFiles": 8,
+        "excludedByPolicy": 5,
+        "eligibleFiles": 3,
+        "analyzedFiles": 3,
+        "failedOrSkippedEligibleFiles": 0
+      },
+      "bindings": [
+        {
+          "id": "55e8949cd5af6ab1902809fe06ef0ca144677fcd65c03e0f8ef8e7627b100959",
+          "targetId": "react-dom::react-dom::findDOMNode",
+          "location": {
+            "file": "packages/material-ui/src/Portal/Portal.js",
+            "start": {
+              "line": 2,
+              "column": 13
+            },
+            "end": {
+              "line": 2,
+              "column": 21
+            }
+          },
+          "localName": "ReactDOM",
+          "form": "esm-namespace",
+          "importSpace": "value",
+          "attribution": {
+            "status": "manifest-corroborated",
+            "reasons": [
+              "The nearest manifest declares the target registry dependency; runtime resolution is not verified."
+            ],
+            "manifestFile": "packages/material-ui/package.json",
+            "declaredRange": "^16.8.0 || ^17.0.0",
+            "dependencyKind": "peerDependency"
+          }
+        },
+        {
+          "id": "e4ba6dfb8ce402ce8b01a85a9d3835d856e336a590f2ad8a2ad4a8d66230fea9",
+          "targetId": "react-dom::react-dom::findDOMNode",
+          "location": {
+            "file": "packages/material-ui/src/RootRef/RootRef.js",
+            "start": {
+              "line": 2,
+              "column": 13
+            },
+            "end": {
+              "line": 2,
+              "column": 21
+            }
+          },
+          "localName": "ReactDOM",
+          "form": "esm-namespace",
+          "importSpace": "value",
+          "attribution": {
+            "status": "manifest-corroborated",
+            "reasons": [
+              "The nearest manifest declares the target registry dependency; runtime resolution is not verified."
+            ],
+            "manifestFile": "packages/material-ui/package.json",
+            "declaredRange": "^16.8.0 || ^17.0.0",
+            "dependencyKind": "peerDependency"
+          }
+        }
+      ],
+      "findings": [
+        {
+          "id": "8fe1682e026469a702f2f47e85a8e8c14c13f8e1167a72b65991d77f864e35aa",
+          "targetId": "react-dom::react-dom::findDOMNode",
+          "bindingId": "55e8949cd5af6ab1902809fe06ef0ca144677fcd65c03e0f8ef8e7627b100959",
+          "kind": "value-reference",
+          "location": {
+            "file": "packages/material-ui/src/Portal/Portal.js",
+            "start": {
+              "line": 12,
+              "column": 19
+            },
+            "end": {
+              "line": 12,
+              "column": 30
+            }
+          },
+          "ruleId": "0.1.0-t07"
+        },
+        {
+          "id": "3985c556b8c3b124dbe3ecd1960aad44ae9b52e767544b393d1f69900d409c6e",
+          "targetId": "react-dom::react-dom::findDOMNode",
+          "bindingId": "e4ba6dfb8ce402ce8b01a85a9d3835d856e336a590f2ad8a2ad4a8d66230fea9",
+          "kind": "value-reference",
+          "location": {
+            "file": "packages/material-ui/src/RootRef/RootRef.js",
+            "start": {
+              "line": 45,
+              "column": 25
+            },
+            "end": {
+              "line": 45,
+              "column": 36
+            }
+          },
+          "ruleId": "0.1.0-t07"
+        },
+        {
+          "id": "c225dff08c63258dcd36fd9e336f6a57e8c579cf4d07ec24a6ab9e65b48461d1",
+          "targetId": "react-dom::react-dom::findDOMNode",
+          "bindingId": "e4ba6dfb8ce402ce8b01a85a9d3835d856e336a590f2ad8a2ad4a8d66230fea9",
+          "kind": "value-reference",
+          "location": {
+            "file": "packages/material-ui/src/RootRef/RootRef.js",
+            "start": {
+              "line": 50,
+              "column": 26
+            },
+            "end": {
+              "line": 50,
+              "column": 37
+            }
+          },
+          "ruleId": "0.1.0-t07"
+        }
+      ],
+      "gaps": []
+    }
+  ]
+}

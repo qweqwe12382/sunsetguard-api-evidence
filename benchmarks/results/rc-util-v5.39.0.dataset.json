@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "0.1",
+  "target": {
+    "id": "react-dom::react-dom::findDOMNode",
+    "packageName": "react-dom",
+    "moduleSpecifier": "react-dom",
+    "exportName": "findDOMNode"
+  },
+  "snapshot": {
+    "snapshotId": "react-component/util@6253c1b69eaf6dbde64f32370a69df0f24865715:selected-files",
+    "contentHash": "93569dd8d472ba875ce8b695be938743132c952ce11aa682f31bd23a4ee1e218",
+    "scopeHash": "401adb2bded9eb1808f2f2ff36b1404eda0518f5e20717235e43cb9064416c0d",
+    "reportIdentity": {
+      "repositoryId": "local:single",
+      "sourceId": "93569dd8d472ba875ce8b695be938743132c952ce11aa682f31bd23a4ee1e218"
+    }
+  },
+  "ruleSetVersion": "0.1.0-t07",
+  "analyzerVersion": "0.1.0-t07",
+  "analysisProfile": "module-syntax-v1",
+  "reviewStatus": "provisional",
+  "files": [
+    {
+      "file": "src/Dom/findDOMNode.ts",
+      "sha256": "70365053ceb87be47fd6d5b4620ce897f9041d99896565f3eaada8c3c794bcd9",
+      "exhaustive": true,
+      "labels": [
+        {
+          "id": "rc-util-v5.39.0:default-member",
+          "file": "src/Dom/findDOMNode.ts",
+          "expected": "unknown",
+          "location": {
+            "file": "src/Dom/findDOMNode.ts",
+            "start": {
+              "line": 21,
+              "column": 22
+            },
+            "end": {
+              "line": 21,
+              "column": 33
+            }
+          },
+          "expectedGapCodes": [
+            "UNSUPPORTED_TARGET_PATTERN"
+          ]
+        },
+        {
+          "id": "rc-util-v5.39.0:local-declaration",
+          "file": "src/Dom/findDOMNode.ts",
+          "expected": "negative",
+          "location": {
+            "file": "src/Dom/findDOMNode.ts",
+            "start": {
+              "line": 13,
+              "column": 25
+            },
+            "end": {
+              "line": 13,
+              "column": 36
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/Dom/canUseDom.ts",
+      "sha256": "ecce33dff5c8056e5d0e52fb0a0a9a743f602a83dd901b181ce4b6203354ce1e",
+      "exhaustive": true,
+      "labels": [
+        {
+          "id": "rc-util-v5.39.0:dom-helper-negative",
+          "file": "src/Dom/canUseDom.ts",
+          "expected": "negative"
+        }
+      ]
+    }
+  ],
+  "expectedRepository": {
+    "bucket": "unknown",
+    "status": "partial"
+  }
+}

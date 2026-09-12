@@ -1,0 +1,56 @@
+{
+  "reviewStatus": "provisional",
+  "provisional": true,
+  "notice": "Provisional metrics are not human-confirmed accuracy claims.",
+  "token": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": null,
+    "recall": null
+  },
+  "confirmed": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": null,
+    "recall": null
+  },
+  "ambiguousCandidates": {
+    "matched": 0,
+    "unexpected": 0,
+    "missed": 0
+  },
+  "attribution": {
+    "correct": 0,
+    "incorrect": 0,
+    "unassessable": 0
+  },
+  "negatives": {
+    "trueNegative": 1,
+    "falsePositive": 0,
+    "unassessable": 0,
+    "unknownMisclassifiedClean": 0
+  },
+  "unknown": {
+    "matched": 0,
+    "missing": 0
+  },
+  "repository": {
+    "expected": {
+      "bucket": "not-detected-within-scope",
+      "status": "complete-within-scope"
+    },
+    "actual": {
+      "bucket": "not-detected-within-scope",
+      "status": "complete-within-scope"
+    },
+    "bucketMatch": true,
+    "statusMatch": true
+  },
+  "scope": {
+    "reviewedFiles": 1,
+    "exhaustiveFiles": 1,
+    "excludedPredictions": 0
+  }
+}

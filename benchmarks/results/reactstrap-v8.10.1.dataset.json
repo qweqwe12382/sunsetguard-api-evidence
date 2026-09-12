@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "0.1",
+  "target": {
+    "id": "react-dom::react-dom::findDOMNode",
+    "packageName": "react-dom",
+    "moduleSpecifier": "react-dom",
+    "exportName": "findDOMNode"
+  },
+  "snapshot": {
+    "snapshotId": "reactstrap/reactstrap@41eb0d427c3c8568948ec47880af7cb473228215:selected-files",
+    "contentHash": "c11ffae7417a03489b72589a6849cf733efe845398c6a02056c072d1065e56ed",
+    "scopeHash": "401adb2bded9eb1808f2f2ff36b1404eda0518f5e20717235e43cb9064416c0d",
+    "reportIdentity": {
+      "repositoryId": "local:single",
+      "sourceId": "c11ffae7417a03489b72589a6849cf733efe845398c6a02056c072d1065e56ed"
+    }
+  },
+  "ruleSetVersion": "0.1.0-t07",
+  "analyzerVersion": "0.1.0-t07",
+  "analysisProfile": "module-syntax-v1",
+  "reviewStatus": "provisional",
+  "files": [
+    {
+      "file": "src/Button.js",
+      "sha256": "942919899c5f269dfb7da25e46e4c8ab350b51c354b4bdcbb012ac497bc75244",
+      "exhaustive": true,
+      "labels": [
+        {
+          "id": "reactstrap-v8.10.1:button-negative",
+          "file": "src/Button.js",
+          "expected": "negative"
+        }
+      ]
+    }
+  ],
+  "expectedRepository": {
+    "bucket": "not-detected-within-scope",
+    "status": "complete-within-scope"
+  }
+}

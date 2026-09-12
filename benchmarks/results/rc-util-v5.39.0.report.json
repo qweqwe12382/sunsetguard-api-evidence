@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "0.1",
+  "reportKind": "scan",
+  "analyzerVersion": "0.1.0-t07",
+  "ruleSetVersion": "0.1.0-t07",
+  "analysisProfile": "module-syntax-v1",
+  "generatedAt": "2026-09-11T15:14:53.681Z",
+  "target": {
+    "id": "react-dom::react-dom::findDOMNode",
+    "packageName": "react-dom",
+    "moduleSpecifier": "react-dom",
+    "exportName": "findDOMNode"
+  },
+  "limitations": [
+    "snapshotScope={\"extensions\":[\".ts\",\".tsx\",\".js\",\".jsx\",\".mts\",\".cts\",\".mjs\",\".cjs\"],\"excludedDirectories\":[\".cache\",\".git\",\".next\",\"build\",\"coverage\",\"dist\",\"node_modules\",\"vendor\"],\"excludedSuffixes\":[\".d.ts\",\".d.mts\",\".d.cts\"],\"directoryCaseSensitive\":false,\"followSymlinks\":false,\"respectGitignore\":false,\"limits\":{\"maxFileBytes\":2097152,\"maxTotalBytes\":52428800,\"maxFiles\":5000,\"maxEntries\":20000,\"maxDepth\":128,\"timeoutMs\":120000}}",
+    "analysisPolicy={\"limits\":{\"maxEvidenceItems\":100000,\"maxEvidenceBytes\":33554432,\"maxOldGenerationSizeMb\":128},\"mandatoryDiagnosticReserve\":\"At most three mandatory source/empty/resource diagnostics can exceed a lowered evidence budget.\",\"analyzerVersion\":\"0.1.0-t07\",\"ruleSetVersion\":\"0.1.0-t07\"}",
+    "attributionPolicy={\"limits\":{\"maxFileBytes\":262144,\"maxTotalBytes\":2097152,\"maxFiles\":128,\"maxLookups\":20000,\"maxDepth\":128,\"maxExtendsDepth\":16},\"version\":\"0.1.0-t06\"}",
+    "Module attribution uses bounded local configuration evidence and does not prove runtime package resolution.",
+    "Only captured source bytes are analyzed; downstream code and configuration are not executed.",
+    "Per-file AST work uses a terminating worker deadline; aggregate evidence limits are item and serialized-byte budgets, not an RSS guarantee.",
+    "Workspace checks use root selectors and manifests encountered alongside captured source files; exact and single-star selectors are supported, not full workspace or dependency resolution.",
+    "Snapshot filesystem I/O observes cancellation and time cooperatively between bounded operations; it is not an OS-level hard interruption.",
+    "Path identity checks detect observed changes but do not provide an atomic filesystem transaction against concurrent directory replacement.",
+    "Inventory counts are bounded observations, not totals for entries not enumerated after a limit or cancellation.",
+    "The local sourceId identifies captured source and attribution bytes; it is not a stable repository identity across scans.",
+    "Source snippets are disabled and are not included in CLI reports.",
+    "Not detected within this scope does not mean migrated, globally unused, or safe to remove."
+  ],
+  "sample": {
+    "source": "local",
+    "selected": 1,
+    "excluded": 0,
+    "attempted": 1,
+    "knownTotal": 1,
+    "knownTotalUnit": "repositories",
+    "exclusionReasons": {}
+  },
+  "summary": {
+    "detected": 0,
+    "notDetectedWithinScope": 0,
+    "unknown": 1,
+    "completeWithinScope": 0,
+    "partial": 1,
+    "failed": 0
+  },
+  "results": [
+    {
+      "repositoryId": "local:single",
+      "targetId": "react-dom::react-dom::findDOMNode",
+      "snapshot": {
+        "kind": "local",
+        "sourceId": "93569dd8d472ba875ce8b695be938743132c952ce11aa682f31bd23a4ee1e218",
+        "contentHash": "93569dd8d472ba875ce8b695be938743132c952ce11aa682f31bd23a4ee1e218",
+        "scopeHash": "401adb2bded9eb1808f2f2ff36b1404eda0518f5e20717235e43cb9064416c0d"
+      },
+      "status": "partial",
+      "bucket": "unknown",
+      "inventory": {
+        "discoveredFiles": 5,
+        "excludedByPolicy": 3,
+        "eligibleFiles": 2,
+        "analyzedFiles": 2,
+        "failedOrSkippedEligibleFiles": 0
+      },
+      "bindings": [],
+      "findings": [],
+      "gaps": [
+        {
+          "code": "UNSUPPORTED_TARGET_PATTERN",
+          "message": "Default-import target access or propagation is not supported; it does not prove a named export binding.",
+          "targetId": "react-dom::react-dom::findDOMNode",
+          "location": {
+            "file": "src/Dom/findDOMNode.ts",
+            "start": {
+              "line": 21,
+              "column": 22
+            },
+            "end": {
+              "line": 21,
+              "column": 33
+            }
+          },
+          "affectsConclusion": true
+        }
+      ]
+    }
+  ]
+}

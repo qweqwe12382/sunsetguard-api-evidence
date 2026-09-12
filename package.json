@@ -1,0 +1,35 @@
+{
+  "name": "sunsetguard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Read-only evidence of references to a specified JS/TS API.",
+  "type": "module",
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
+  "bin": {
+    "sunsetguard": "dist/cli/bin.js"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "pnpm run build && vitest run",
+    "lint": "eslint . --max-warnings 0",
+    "build": "tsc -p tsconfig.build.json",
+    "bundle:local": "pnpm run build && node scripts/build-local-trial.mjs",
+    "verify:local": "node scripts/verify-local-trial.mjs"
+  },
+  "dependencies": {
+    "commander": "15.0.0",
+    "tar-stream": "3.2.1",
+    "typescript": "5.9.3",
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.1",
+    "@types/node": "24.10.1",
+    "eslint": "9.39.1",
+    "typescript-eslint": "8.70.0",
+    "vitest": "4.1.0"
+  }
+}

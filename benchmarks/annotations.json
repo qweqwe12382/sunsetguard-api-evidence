@@ -1,0 +1,47 @@
+{
+  "reviewStatus": "provisional",
+  "labelMethod": "Agent source review before viewing predictions; no independent human review. Spans are one-based UTF-16 [line,column,length].",
+  "ruleSetVersion": "0.1.0-t07",
+  "samples": [
+    {
+      "id": "mui-v4.12.4",
+      "expectedRepository": { "bucket": "detected", "status": "complete-within-scope" },
+      "files": [
+        { "file": "packages/material-ui/src/RootRef/RootRef.js", "exhaustive": true, "labels": [
+          { "id": "mount", "expected": "finding", "kind": "value-reference", "attribution": "manifest-corroborated", "at": [45,25,11], "bindingAt": [2,13,8], "note": "Namespace member in componentDidMount; peer dependency in nearest material-ui manifest." },
+          { "id": "update", "expected": "finding", "kind": "value-reference", "attribution": "manifest-corroborated", "at": [50,26,11], "bindingAt": [2,13,8], "note": "Same namespace binding, second reference in componentDidUpdate." },
+          { "id": "comment", "expected": "negative", "at": [15,25,11], "note": "Documentation comment, not a source reference." },
+          { "id": "string", "expected": "negative", "at": [74,51,11], "note": "Warning string, not a source reference." }
+        ] },
+        { "file": "packages/material-ui/src/Portal/Portal.js", "exhaustive": true, "labels": [
+          { "id": "container", "expected": "finding", "kind": "value-reference", "attribution": "manifest-corroborated", "at": [12,19,11], "bindingAt": [2,13,8], "note": "Namespace target member; createPortal later in this file is a different export." }
+        ] },
+        { "file": "packages/material-ui/src/utils/setRef.js", "exhaustive": true, "labels": [
+          { "id": "helper-negative", "expected": "negative", "note": "Whole selected helper has no target module binding." }
+        ] }
+      ]
+    },
+    {
+      "id": "rc-util-v5.39.0",
+      "expectedRepository": { "bucket": "unknown", "status": "partial" },
+      "files": [
+        { "file": "src/Dom/findDOMNode.ts", "exhaustive": true, "labels": [
+          { "id": "default-member", "expected": "unknown", "expectedGapCodes": ["UNSUPPORTED_TARGET_PATTERN"], "at": [21,22,11], "note": "Default import member is unsupported; do not infer named export identity or clean result." },
+          { "id": "local-declaration", "expected": "negative", "at": [13,25,11], "note": "Local function name is not the target import binding; partial execution makes negative certification unassessable." }
+        ] },
+        { "file": "src/Dom/canUseDom.ts", "exhaustive": true, "labels": [
+          { "id": "dom-helper-negative", "expected": "negative", "note": "No target import in this file; repository subset remains partial due to the other file." }
+        ] }
+      ]
+    },
+    {
+      "id": "reactstrap-v8.10.1",
+      "expectedRepository": { "bucket": "not-detected-within-scope", "status": "complete-within-scope" },
+      "files": [
+        { "file": "src/Button.js", "exhaustive": true, "labels": [
+          { "id": "button-negative", "expected": "negative", "note": "Entire selected component reviewed: no react-dom import or target reference; no claim about the rest of reactstrap." }
+        ] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+.test-tmp/
+artifacts/
+*.tsbuildinfo
+*.tgz
+*.log
+.env*

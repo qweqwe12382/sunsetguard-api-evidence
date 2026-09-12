@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "0.1",
+  "repositories": [
+    { "kind": "github", "repository": "react-component/util", "ref": "6253c1b69eaf6dbde64f32370a69df0f24865715" },
+    { "kind": "github", "repository": "reactstrap/reactstrap", "ref": "41eb0d427c3c8568948ec47880af7cb473228215" }
+  ]
+}
