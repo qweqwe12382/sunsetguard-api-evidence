@@ -8,7 +8,7 @@
 
 - 公开仓库：<https://github.com/qweqwe12382/sunsetguard-api-evidence>
 - 默认分支：`main`
-- 当前发布：`v0.1.1`
+- 当前发布：`v0.1.1`，tag 固定到 `5dbacfb5e7dd5e955df4791b2f8b6a744bee7c40`
 - 许可证：MIT
 - 包分发：提供 GitHub Release 本地试用包；npm 包保持 `private: true`，尚未发布到 registry
 - 维护入口：`MAINTAINERS.md`、`.github/CODEOWNERS`、`CONTRIBUTING.md`、`SECURITY.md`
@@ -30,7 +30,7 @@
 | 检查 | 当前证据 |
 |---|---|
 | 本地完整检查 | `pnpm run check` 通过；36 个测试文件，527 passed，1 个 Windows symlink 权限用例 skipped；typecheck、lint、build 通过 |
-| 最终远端 CI | [GitHub Actions run 35053225665](https://github.com/qweqwe12382/sunsetguard-api-evidence/actions/runs/35053225665) 成功；Ubuntu 和 Windows 共 2 个 job |
+| v0.1.1 远端 CI | [GitHub Actions run 35054342676](https://github.com/qweqwe12382/sunsetguard-api-evidence/actions/runs/35054342676) 成功；Ubuntu 和 Windows 共 2 个 job |
 | Ubuntu CI | 36 个测试文件，526 passed，2 skipped |
 | Windows CI | 36 个测试文件，528 passed |
 | 发布包 | 181 个文件，241991 字节，SHA-256 `90c420828c944054cc6a37f0760b277b00e959caab4e831bed307dcae0032d25` |
