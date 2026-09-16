@@ -1,6 +1,6 @@
 # 本地试用指南
 
-适用状态：2026-09-16 的 v0.1.0 本地交付版本。源码与试用包采用 MIT 许可证；npm 包仍保持 private 且未发布，第三方采用尚未验证。使用 Node 24.x 和 pnpm 11.7.0。
+适用状态：2026-09-16 的 v0.1.1 本地交付版本。源码与试用包采用 MIT 许可证；npm 包仍保持 private 且未发布，第三方采用尚未验证。使用 Node 24.x 和 pnpm 11.7.0。
 
 独立试用包包含编译后的 CLI。可在工作区运行 `pnpm run bundle:local` 生成新的本地归档，再按随包 [安装说明](LOCAL_PACKAGE.md) 解包，只安装工具运行依赖，即可从任意工作目录使用。归档、摘要和本地验收目录默认不纳入版本库；包未捆绑 Node/pnpm 或 node_modules，首次依赖安装需要 registry，已有对应 pnpm store 时可加 `--offline`。
 
@@ -12,7 +12,7 @@ pnpm run build
 node dist/cli/bin.js --help
 ```
 
-工程内的 `pnpm run bundle:local` 会构建并生成新的 artifacts/local-trial-* 目录，不覆盖旧产物。独立验收入口为 `pnpm run verify:local <artifact-directory>`，要求本机 store 已缓存锁定的生产依赖；解包目录位于工作区外 SunsetGuard-trials，检查记录位于 artifacts/local-install-*。可选 `--snapshot-cache <existing-cache>` 复用两个示例的已有真实快照，离线重放并核对分析缓存；不传时该项明确记为 not-run。验收保留独立目录供检查，不自动清理用户数据，也不执行下游源码或依赖生命周期。
+工程内的 `pnpm run bundle:local` 会构建并生成新的 artifacts/local-trial-* 目录，不覆盖旧产物。独立验收入口为 `pnpm run verify:local <artifact-directory>`，要求本机 store 已缓存锁定的生产依赖；解包目录位于项目目录外的 SunsetGuard-trials，检查记录位于 artifacts/local-install-*。可选 `--snapshot-cache <existing-cache>` 复用两个示例的已有真实快照，离线重放并核对分析缓存；不传时该项明确记为 not-run。验收保留独立目录供检查，不自动清理用户数据，也不执行下游源码或依赖生命周期。
 
 ## 1. 先跑离线演示
 

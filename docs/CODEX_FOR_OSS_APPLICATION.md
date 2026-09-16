@@ -22,7 +22,7 @@ Fill these directly in the official form. Do not commit them to this repository.
 - Interests: **API credits for my project** and **Codex Security**
 - License: MIT
 - Maintainer evidence: repository ownership, `MAINTAINERS.md`, `.github/CODEOWNERS`, contribution and security policies, tagged release, and Linux/Windows CI.
-- Release evidence: `https://github.com/qweqwe12382/sunsetguard-api-evidence/releases/tag/v0.1.0`
+- Release evidence: `https://github.com/qweqwe12382/sunsetguard-api-evidence/releases/tag/v0.1.1`
 
 ## Copy-ready form responses
 

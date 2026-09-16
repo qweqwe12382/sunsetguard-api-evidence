@@ -594,7 +594,6 @@ T09 实现附注：`fetchGitHubSnapshot` / `scanGitHub` 支持单个明确 `owne
 任何扩展都不能删除“不执行下游”“不保证安全删除”“未知不充当成功”的基本原则。
 
 [S1]: https://openai.com/form/codex-for-oss/
-[S2]: https://developers.openai.com/codex/guides/agents-md
 [S3]: https://www.typescriptlang.org/docs/handbook/modules/reference.html
 [S4]: https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API
 [S5]: https://ts-morph.com/navigation/finding-references

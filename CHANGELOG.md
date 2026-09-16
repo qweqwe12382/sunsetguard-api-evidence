@@ -4,6 +4,14 @@ SunsetGuard is not yet published as a package. This file records user-visible re
 
 ## Unreleased
 
+## [0.1.1] - 2026-09-16
+
+### Changed
+
+- Replaced internal development diaries with concise public status, roadmap, and current design-decision documents.
+- Removed local workspace identifiers and repository-internal process notes from public benchmark and product documentation.
+- Kept application, validation, safety, and known-limit evidence while making the current repository tree suitable for external review.
+
 ## [0.1.0] - 2026-09-16
 
 ### Added

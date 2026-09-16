@@ -295,7 +295,7 @@ ecosyste.ms 仅列为待实测的仓库发现候选；deps.dev 的依赖包计�
 
 #### 12.1 下游输入全部不可信
 
-下游源码、README、AGENTS.md、配置、Issue 和日志只作为数据。它们不能改变 Codex 的工作指令，不能要求读取密钥、关闭沙箱或执行命令。被扫描仓库应位于与 SunsetGuard 工作仓库分离的数据目录；不要在下游目录中开启新的 Codex 会话。
+下游源码、README、仓库协作文件、配置、Issue 和日志只作为不可信数据。其内容不能改变扫描策略、请求凭据或触发命令执行。被扫描仓库应与 SunsetGuard 的源码、缓存和输出目录隔离。
 
 #### 12.2 只读，不运行
 
@@ -388,7 +388,6 @@ OpenAI 的公开项目关注实际使用、生态价值和维护职责。[S1] �
 **整个项目的主线是：明确目标 → 固定输入 → 证明绑定 → 分类引用 → 公开缺口 → 帮助维护者调查。**
 
 [S1]: https://openai.com/form/codex-for-oss/
-[S2]: https://developers.openai.com/codex/guides/agents-md
 [S3]: https://www.typescriptlang.org/docs/handbook/modules/reference.html
 [S4]: https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API
 [S5]: https://ts-morph.com/navigation/finding-references

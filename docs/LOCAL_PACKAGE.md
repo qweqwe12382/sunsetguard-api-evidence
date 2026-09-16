@@ -71,12 +71,12 @@ node dist/cli/bin.js scan --repos examples/consumers.github.json --package react
 
 退出 0 表示报告完整生成、所有输入在限定范围内完成，允许有引用；退出 3 表示报告有 partial/failed；2 是参数/清单错误；1 是内部或输出错误。类型引用、值引用、import-only、direct-reexport 分开记录，都不证明运行时执行。标准语法错误提供首个 TS 诊断的文件/位置，EOF 位置可以是零长度；无法解码或超限时不伪造坐标。
 
-默认不导出源码片段。`--include-snippets` 只保留准确命中 token，周边内容遮去，不能视作通用秘密检测。未检出不等于迁移、安全删除或全局未使用。证据的准确范围与限制见 [SPEC](docs/SPEC.md)。
+默认不导出源码片段。`--include-snippets` 只保留准确命中 token，周边内容遮去，不能视作通用秘密检测。未检出不等于迁移、安全删除或全局未使用。证据的准确范围与限制见 [SPEC](https://github.com/qweqwe12382/sunsetguard-api-evidence/blob/main/docs/SPEC.md)。
 
 ## 包含内容与验证边界
 
 此包包含本工具的 dist、对应 TypeScript 源码与相对 source maps、MIT LICENSE、固定依赖锁、安全 .npmrc、必要文档和原创演示。源码供溯源检查；目录包不附开发测试/重建命令。package.json 的 devDependencies 保留用于锁文件一致性，安装命令的 `--prod` 会跳过它们。
 
-不会包含下游真实源码、缓存、日志、历史报告、私有配置或原工作区 node_modules。文件白名单和摘要见包外的 bundle.json，归档摘要见 SHA256SUMS.txt；这些用于检验本地交付一致性，不是发布者签名。开发记录与测试结果在原工程 STATUS 中，未捆绑为采用证据。
+不会包含下游真实源码、缓存、日志、历史报告、私有配置或源代码仓库的 node_modules。文件白名单和摘要见包外的 bundle.json，归档摘要见 SHA256SUMS.txt；这些用于检验本地交付一致性，不是发布者签名。当前验证记录见源代码仓库的 STATUS，未捆绑为采用证据。
 
 试用包的独立安装与 CLI 验收在 Windows 完成，项目源码测试另由 Ubuntu/Windows CI 覆盖；macOS、独立人审、真实维护者采用和长期运行不能视为已通过。自动发现、历史趋势、迁移补丁与 npm 发布不在此包内。

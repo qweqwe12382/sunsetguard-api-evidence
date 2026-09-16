@@ -20,12 +20,6 @@
 
 用途与边界：核对申请信息需准确完整、维护者身份可被验证、API credits/Codex Security 只能用于有权管理或审查的仓库与代码，以及申请材料不应包含机密信息。项目申请材料不能把公开可读的第三方源码视为已取得使用计划权益下的审查授权。
 
-#### S2 · OpenAI：Custom instructions with AGENTS.md
-
-来源：<https://developers.openai.com/codex/guides/agents-md>
-
-用途与边界：核对 AGENTS.md 的发现、目录作用域和默认文档体积限制。官方入口当前重定向至 ChatGPT Learn。
-
 #### S3 · TypeScript：Modules — Reference
 
 来源：<https://www.typescriptlang.org/docs/handbook/modules/reference.html>
@@ -80,9 +74,9 @@
 
 用途与边界：核对 --ignore-scripts 和 --frozen-lockfile 等选项；仅适用于经允许的本项目依赖安装，不授权安装下游依赖。
 
-### 本轮确实完成的工作
+### 资料使用边界
 
-阅读并核对上述官方页面或官方项目源码；整理产品边界、协议、任务和验收标准。没有访问用户的 GitHub 私有仓库，没有运行 SunsetGuard，没有测试外部 API 的真实下游列表。
+上述资料用于确定产品语义、接口限制、工具链和申请条件。运行时验证、真实网络测试和当前发布状态单独记录在 [STATUS.md](STATUS.md)，引用资料本身不等于实现或生产行为已经验证。
 
 ### 不能写成“已验证通过”的事项
 
@@ -105,7 +99,6 @@
 
 
 [S1]: https://openai.com/form/codex-for-oss/
-[S2]: https://developers.openai.com/codex/guides/agents-md
 [S3]: https://www.typescriptlang.org/docs/handbook/modules/reference.html
 [S4]: https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API
 [S5]: https://ts-morph.com/navigation/finding-references
