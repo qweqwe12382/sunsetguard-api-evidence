@@ -3,6 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "description": "Read-only evidence of references to a specified JS/TS API.",
+  "keywords": [
+    "api-usage",
+    "static-analysis",
+    "typescript",
+    "javascript",
+    "cli"
+  ],
+  "homepage": "https://github.com/qweqwe12382/sunsetguard-api-evidence#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qweqwe12382/sunsetguard-api-evidence.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qweqwe12382/sunsetguard-api-evidence/issues"
+  },
   "type": "module",
   "packageManager": "pnpm@11.7.0",
   "engines": {
@@ -12,6 +27,7 @@
     "sunsetguard": "dist/cli/bin.js"
   },
   "scripts": {
+    "check": "pnpm run typecheck && pnpm run lint && pnpm test",
     "typecheck": "tsc --noEmit",
     "test": "pnpm run build && vitest run",
     "lint": "eslint . --max-warnings 0",

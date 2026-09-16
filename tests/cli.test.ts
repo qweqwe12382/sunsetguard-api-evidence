@@ -28,13 +28,16 @@ describe("SunsetGuard CLI", () => {
     expect(output.stderr()).toBe("");
   });
 
-  it("rejects incomplete targets as invalid arguments", async () => {
+  it.each([
+    { argv: ["analyze", "fixture", "--symbol", "oldApi"], missing: "--package" },
+    { argv: ["analyze", "fixture", "--package", "example-lib"], missing: "--symbol" },
+    { argv: ["scan", "--package", "example-lib", "--symbol", "oldApi"], missing: "--repos" },
+  ])("reports the exact missing required option $missing", async ({ argv, missing }) => {
     const output = captureIo();
 
-    await expect(runCli(["analyze", "fixture", "--package", "example-lib"], output.io))
-      .resolves.toBe(EXIT_CODE.INVALID_ARGUMENTS);
+    await expect(runCli(argv, output.io)).resolves.toBe(EXIT_CODE.INVALID_ARGUMENTS);
     expect(output.stdout()).toBe("");
-    expect(output.stderr()).toContain("--symbol");
+    expect(output.stderr()).toBe(`Required ${missing} option must be supplied.\n`);
   });
 
   it("rejects an invalid format before analysis", async () => {

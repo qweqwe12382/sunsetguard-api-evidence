@@ -4,6 +4,7 @@ import { dirname, join, resolve } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createCache } from "../src/cache/index.js";
 import type { AnalysisCacheIdentity } from "../src/cache/index.js";
+import { ATTRIBUTION_VERSION } from "../src/attribution/index.js";
 import { parseApiTarget } from "../src/domain/index.js";
 import { RemoteError } from "../src/remote/policy.js";
 import { gitBlob } from "./helpers/remote-fixtures.js";
@@ -58,6 +59,7 @@ describe("GitHub snapshot and analysis cache integration", () => {
   });
   it("invalidates analysis for target, rules, analyzer, source, scope and snippet policy changes", async () => {
     const cache = await createCache(cachePath); await scanGitHub(input, target, { cache }); const identity = await readAnalysisIdentity();
+    expect(JSON.parse(identity.scopePolicy).attributionPolicy.version).toBe(ATTRIBUTION_VERSION);
     const changes: Partial<AnalysisCacheIdentity>[] = [
       { ruleSetVersion: "future-rule" }, { analyzerVersion: "future-analyzer" }, { snapshotHash: "e".repeat(64) }, { scopePolicy: "changed scope" },
       { target: parseApiTarget({ packageName: "pkg", exportName: "otherApi" }) }, { snippetPolicy: "future-snippet" }, { remotePolicy: "future-remote" },
@@ -103,6 +105,25 @@ describe("GitHub snapshot and analysis cache integration", () => {
     const path = join(cachePath, "analyses", (await readdir(join(cachePath, "analyses")))[0]!); await writeFile(path, '{"summary":{"detected":999}}');
     const report = await scanGitHub(input, target, { cache, offline: true });
     expect(report.summary.detected).toBe(1); expect(state.analyses).toBe(2); expect(state.downloads).toBe(1); expect(report.limitations.join(" ")).toContain("Cache reuse was unavailable");
+  });
+  it("rejects a checksummed legacy analysis that contains a downstream dependency value", async () => {
+    const cache = await createCache(cachePath); await scanGitHub(input, target, { cache });
+    const path = join(cachePath, "analyses", (await readdir(join(cachePath, "analyses")))[0]!);
+    const record = JSON.parse(await readFile(path, "utf8")) as {
+      checksum: string;
+      value: { report: { results: { bindings: { attribution: Record<string, unknown> }[] }[] } };
+    };
+    const privateValue = "ALPHANUMERICONLYVALUE1234567890";
+    record.value.report.results[0]!.bindings[0]!.attribution.declaredRange = privateValue;
+    record.checksum = createHash("sha256").update(JSON.stringify(record.value)).digest("hex");
+    await writeFile(path, JSON.stringify(record));
+
+    const report = await scanGitHub(input, target, { cache, offline: true });
+    expect(report.summary.detected).toBe(1);
+    expect(state.downloads).toBe(1);
+    expect(state.analyses).toBe(2);
+    expect(report.limitations.join(" ")).toContain("Cache reuse was unavailable");
+    expect(JSON.stringify(report)).not.toContain(privateValue);
   });
   it("cross-checks the source record and independently recomputes scope even for checksummed stale records", async () => {
     const cache = await createCache(cachePath); await scanGitHub(input, target, { cache }); const identity = await readAnalysisIdentity();

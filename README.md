@@ -22,6 +22,12 @@ pnpm run build
 node dist/cli/bin.js --help
 ```
 
+Run the complete local verification before submitting a change:
+
+```sh
+pnpm run check
+```
+
 Run the included offline example:
 
 ```sh
@@ -68,5 +74,8 @@ The package is private for npm (`private: true`) and has not been published. Thi
 - [Current status](docs/STATUS.md) — completed work and evidence-backed validation.
 - [Project report](docs/PROJECT_REPORT.md) — product scope and validation gates.
 - [Design decisions](docs/DECISIONS.md) — architecture and security trade-offs.
+- [Contributing](CONTRIBUTING.md) — supported scope, development checks, and review expectations.
+- [Security policy](SECURITY.md) — reporting process and security-sensitive areas.
+- [Changelog](CHANGELOG.md) — user-visible changes that are not yet published as a package release.
 
 The benchmark labels in `benchmarks/` are provisional and are not a general accuracy claim. Automatic ecosystem discovery, historical comparison, and migration patches are not implemented.

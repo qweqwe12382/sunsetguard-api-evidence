@@ -35,7 +35,7 @@ function bindingLines(binding: Binding): string[] {
     `attribution: ${binding.attribution.status}; ${binding.attribution.reasons.map(text).join("; ")}`,
   ];
   if (binding.attribution.manifestFile !== undefined) {
-    lines.push(`manifest: ${text(binding.attribution.manifestFile)}; dependency=${text(binding.attribution.dependencyKind ?? "unknown")}; declared-range=${text(binding.attribution.declaredRange ?? "unknown")}`);
+    lines.push(`manifest: ${text(binding.attribution.manifestFile)}; dependency=${text(binding.attribution.dependencyKind ?? "unknown")}`);
   }
   if (binding.attribution.resolvedVersion !== undefined) lines.push(`resolved-version: ${text(binding.attribution.resolvedVersion)}`);
   return lines;
@@ -150,6 +150,18 @@ export function renderReport(input: ScanReport, format: ReportFormat, options: R
       const names = new Map(result.bindings.map(binding => [binding.id, binding.localName]));
       return {
         ...result,
+        // declaredRange is accepted for legacy report compatibility but is downstream manifest data.
+        // Rebuild attribution from report-safe fields so no renderer exports that raw value.
+        bindings: result.bindings.map(binding => ({
+          ...binding,
+          attribution: {
+            status: binding.attribution.status,
+            reasons: binding.attribution.reasons,
+            ...(binding.attribution.manifestFile === undefined ? {} : { manifestFile: binding.attribution.manifestFile }),
+            ...(binding.attribution.dependencyKind === undefined ? {} : { dependencyKind: binding.attribution.dependencyKind }),
+            ...(binding.attribution.resolvedVersion === undefined ? {} : { resolvedVersion: binding.attribution.resolvedVersion }),
+          },
+        })),
         findings: result.findings.map(finding => ({
           id: finding.id, targetId: finding.targetId, bindingId: finding.bindingId,
           kind: finding.kind, location: finding.location, ruleId: finding.ruleId,

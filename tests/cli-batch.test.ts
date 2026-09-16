@@ -78,8 +78,11 @@ describe("batch CLI", () => {
   });
   it("refuses cache creation inside scanned source without changing source bytes", async () => {
     await save(); const output = capture();
-    expect(await runCli(args("--cache", join(source, "cache")), output.io)).toBe(1);
+    const code = await runCli(args("--cache", join(source, "cache")), output.io);
+    expect(code, output.err()).toBe(2);
     expect(output.out()).toBe("");
+    expect(output.err()).toContain("--cache");
+    expect(output.err()).not.toContain(root);
     expect(await readFile(join(source, "use.ts"), "utf8")).toContain("secret-canary");
   });
   it("runs the built executable with an argument array and JSON-only stdout", async () => {

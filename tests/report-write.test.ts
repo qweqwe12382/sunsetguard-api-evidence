@@ -1,7 +1,13 @@
 import { isAbsolute, join, relative, resolve } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const linkControl = vi.hoisted(() => ({ mode: "pass" as "pass" | "fail" | "occupy", destination: "", contents: "" }));
+const linkControl = vi.hoisted(() => ({
+  mode: "pass" as "pass" | "fail" | "occupy",
+  destination: "",
+  contents: "",
+  afterLink: undefined as (() => Promise<void>) | undefined,
+  failTemporaryUnlink: false,
+}));
 
 vi.mock("node:fs/promises", async importOriginal => {
   const actual = await importOriginal<typeof import("node:fs/promises")>();
@@ -14,12 +20,19 @@ vi.mock("node:fs/promises", async importOriginal => {
         throw error;
       }
       if (linkControl.mode === "occupy") await actual.writeFile(linkControl.destination, linkControl.contents, { flag: "wx" });
-      return actual.link(...args);
+      await actual.link(...args);
+      if (linkControl.afterLink !== undefined) await linkControl.afterLink();
+    },
+    unlink: async (...args: Parameters<typeof actual.unlink>) => {
+      if (linkControl.failTemporaryUnlink && String(args[0]).endsWith(".tmp")) {
+        throw Object.assign(new Error("injected staging cleanup failure"), { code: "EACCES" });
+      }
+      return actual.unlink(...args);
     },
   };
 });
 
-import { link, mkdir, mkdtemp, readFile, readdir, rm, symlink, writeFile } from "node:fs/promises";
+import { link, mkdir, mkdtemp, readFile, readdir, rename, rm, symlink, unlink, writeFile } from "node:fs/promises";
 import { writeReportOutsideSource } from "../src/reports/write.js";
 
 const temporaryBase = resolve(".test-tmp", "report-write");
@@ -38,6 +51,8 @@ beforeEach(async () => {
   linkControl.mode = "pass";
   linkControl.destination = "";
   linkControl.contents = "";
+  linkControl.afterLink = undefined;
+  linkControl.failTemporaryUnlink = false;
   await mkdir(temporaryBase, { recursive: true });
   sandbox = await mkdtemp(join(temporaryBase, `${process.pid}-`));
   sourceRoot = join(sandbox, "source");
@@ -49,6 +64,8 @@ beforeEach(async () => {
 
 afterEach(async () => {
   linkControl.mode = "pass";
+  linkControl.afterLink = undefined;
+  linkControl.failTemporaryUnlink = false;
   assertTemporaryChild(sandbox);
   await rm(sandbox, { recursive: true, force: true });
 });
@@ -140,6 +157,61 @@ describe("writeReportOutsideSource", () => {
 
     expect(await readFile(destination, "utf8")).toBe("won-the-race");
     expect(await readdir(outputRoot)).toEqual(["report.json"]);
+  });
+
+  it("removes its linked output when a later source-boundary check fails", async () => {
+    const destination = join(outputRoot, "report.json");
+    const previousSource = join(sandbox, "previous-source");
+    linkControl.afterLink = async () => {
+      await rename(sourceRoot, previousSource);
+      await mkdir(sourceRoot);
+    };
+
+    await expect(writeReportOutsideSource(sourceRoot, destination, "must-not-survive")).rejects.toThrow("safely published");
+
+    await expect(readFile(destination, "utf8")).rejects.toMatchObject({ code: "ENOENT" });
+    expect(await readdir(outputRoot)).toEqual([]);
+    expect(await readFile(join(previousSource, "input.ts"), "utf8")).toContain("original");
+  });
+
+  it("preserves a replacement that takes the output name after linking", async () => {
+    const destination = join(outputRoot, "report.json");
+    linkControl.afterLink = async () => {
+      await unlink(destination);
+      await writeFile(destination, "user-replacement", { flag: "wx" });
+    };
+
+    await expect(writeReportOutsideSource(sourceRoot, destination, "must-not-overwrite")).rejects.toThrow("safely published");
+
+    expect(await readFile(destination, "utf8")).toBe("user-replacement");
+    expect(await readdir(outputRoot)).toEqual(["report.json"]);
+  });
+
+  it("does not clean through a replaced output parent after linking", async () => {
+    const destination = join(outputRoot, "report.json");
+    const previousOutputRoot = join(sandbox, "previous-reports");
+    linkControl.afterLink = async () => {
+      await rename(outputRoot, previousOutputRoot);
+      await mkdir(outputRoot);
+      await writeFile(destination, "user-replacement", { flag: "wx" });
+    };
+
+    await expect(writeReportOutsideSource(sourceRoot, destination, "published-before-race")).rejects.toThrow("safely published");
+
+    expect(await readFile(destination, "utf8")).toBe("user-replacement");
+    expect(await readFile(join(previousOutputRoot, "report.json"), "utf8")).toBe("published-before-race");
+    expect((await readdir(previousOutputRoot)).length).toBe(2);
+  });
+
+  it("rolls back the published name when staging cleanup fails", async () => {
+    const destination = join(outputRoot, "report.json");
+    linkControl.failTemporaryUnlink = true;
+
+    await expect(writeReportOutsideSource(sourceRoot, destination, "must-not-look-successful"))
+      .rejects.toThrow("safely published");
+
+    await expect(readFile(destination, "utf8")).rejects.toMatchObject({ code: "ENOENT" });
+    expect(await readdir(outputRoot)).toEqual([expect.stringMatching(/^\.sunsetguard-.+\.tmp$/u)]);
   });
 
   it.runIf(process.platform === "win32")("rejects Windows alternate data stream destinations", async () => {

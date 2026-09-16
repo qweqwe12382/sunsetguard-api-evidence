@@ -149,6 +149,8 @@ export function canCacheAnalysis(report: ScanReport): boolean {
 }
 function checkAnalysis(reportValue: unknown, identity: AnalysisCacheIdentity): ScanReport {
   const report = validateScanReport(reportValue), result = report.results[0];
+  if (report.results.some(repository => repository.bindings.some(binding =>
+    binding.attribution.declaredRange !== undefined))) throw new CacheError("CORRUPT");
   const policy = analysisPolicy(identity);
   const framed = createHash("sha256");
   for (const item of [hash(policy.snapshotScope), json(policy.analysisPolicy), json(policy.attributionPolicy)]) framed.update(String(Buffer.byteLength(item))).update(":").update(item).update(";");

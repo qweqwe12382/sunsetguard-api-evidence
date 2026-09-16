@@ -1,0 +1,22 @@
+name: Security contact request
+description: Ask for a private reporting channel without disclosing vulnerability details.
+title: "[Security contact]: "
+body:
+  - type: markdown
+    attributes:
+      value: This issue is public. Do not include exploit details, secrets, private source, or local paths. Ask only for a private contact channel.
+  - type: textarea
+    id: request
+    attributes:
+      label: Contact request
+      description: Write only a short request for a private security reporting channel.
+      placeholder: Please provide a private channel for a security report.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public-content check
+      options:
+        - label: This public issue contains no vulnerability details, secrets, private source, or local paths.
+          required: true

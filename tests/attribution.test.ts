@@ -54,9 +54,20 @@ describe("bounded source attribution", () => {
   ])("corroborates %s without inventing a resolved version", async (section, kind) => {
     await put("package.json", JSON.stringify({ [section]: { pkg: "^1.2.3" }, scripts: { prepare: "throw new Error('never run')" } }));
     const result = await applied();
-    expect(result.bindings[0]!.attribution).toMatchObject({ status: "manifest-corroborated", declaredRange: "^1.2.3", dependencyKind: kind, manifestFile: "package.json" });
+    expect(result.bindings[0]!.attribution).toMatchObject({ status: "manifest-corroborated", dependencyKind: kind, manifestFile: "package.json" });
+    expect(result.bindings[0]!.attribution).not.toHaveProperty("declaredRange");
     expect(result.bindings[0]!.attribution).not.toHaveProperty("resolvedVersion");
     expect(result.gaps).toEqual([]);
+  });
+  it("does not export an unrecognized high-entropy alphanumeric dependency value", async () => {
+    const privateValue = "ALPHANUMERICONLYVALUE1234567890";
+    await put("package.json", JSON.stringify({ dependencies: { pkg: privateValue } }));
+    const result = await applied();
+    expect(result.bindings[0]!.attribution).toMatchObject({
+      status: "manifest-corroborated", dependencyKind: "dependency", manifestFile: "package.json",
+    });
+    expect(result.bindings[0]!.attribution).not.toHaveProperty("declaredRange");
+    expect(JSON.stringify(result)).not.toContain(privateValue);
   });
   it("missing manifests remain declared and never read an ancestor outside root", async () => {
     await fs.writeFile(join(container, "package.json"), '{"dependencies":{"pkg":"1.0.0"}}');

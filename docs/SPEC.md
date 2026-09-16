@@ -111,6 +111,7 @@ export interface Binding {
     status: AttributionStatus;
     reasons: string[];
     manifestFile?: string;
+    /** Legacy input compatibility only; renderers and reusable caches reject or omit this value. */
     declaredRange?: string;
     dependencyKind?:
       | "dependency"
@@ -388,7 +389,7 @@ TypeScript 的 `paths` 可以改变编译器模块解析，但不直接改写生
 
 T06 实现附注（规则 `0.1.0-t06`）：按每个源码目录向根内寻找最近 manifest 和 tsconfig；缺失与读取失败分开处理。JSON/JSONC 重复键、无效形状、根外或包形式 extends、循环和上限形成配置缺口。仅 `./` 或 `../` 开头的根内 extends 可读取，省略后缀时尝试 `.json`；继承数组按顺序覆盖，子配置的 paths 整体覆盖父 paths。缺失 manifest 不伪造 corroborated。
 
-目标 npm/file/link/workspace 声明、本包同名、命中精确/单星 paths，以及根 workspace 选择器匹配的已观察同名包，都产生候选归因。根 workspace 选择器当前支持精确和单星模式，复杂模式作为未解析配置；只核对已捕获源码附近的 manifest，不枚举完整 workspace 或安装依赖。目标无关的有效 paths 不污染结果。输出仅保留可表示的有限依赖 range/tag；URL、本地路径和可识别访问令牌格式不会复制进 declaredRange，不能据此声称自动识别任意秘密。
+目标 npm/file/link/workspace 声明、本包同名、命中精确/单星 paths，以及根 workspace 选择器匹配的已观察同名包，都产生候选归因。根 workspace 选择器当前支持精确和单星模式，复杂模式作为未解析配置；只核对已捕获源码附近的 manifest，不枚举完整 workspace 或安装依赖。目标无关的有效 paths 不污染结果。dependency 声明值只用于进程内的保守归因判断，不进入新生成的报告；旧报告输入中的 `declaredRange` 由 renderer 丢弃，含该字段的分析缓存不复用。该边界不能据此声称自动识别任意秘密。
 
 ### 8. 文件范围、快照与只读输入
 
@@ -461,7 +462,7 @@ T10 实现：`scan --repos <file> --package <name> [--module <entry>] --symbol <
 
 #### 9.2 stdout/stderr
 
-JSON 模式 stdout 只能包含单个 JSON 文档；进度、警告、调试日志全部 stderr。指定 output 时将完整报告写入外部路径，stdout 不输出混杂的人类摘要。文件写入采用临时文件 + 原子替换策略，并明确覆盖授权。
+JSON 模式 stdout 只能包含单个 JSON 文档；进度、警告、调试日志全部 stderr。指定 output 时将完整报告写入外部路径，stdout 不输出混杂的人类摘要。文件写入采用同目录临时文件 + 原子 create-if-absent，不覆盖已有目标；发布失败时只清理由本次操作创建且身份仍匹配的文件。
 
 源码片段默认关闭；开放 `--include-snippets` 时进行限长、控制字符处理和最佳努力脱敏，并说明不能保证覆盖全部秘密。Markdown 默认生成代码块而不是原始 HTML，动态反引号长度与转义要防止源码破坏报告结构。
 
@@ -487,7 +488,7 @@ sample.selected 是原始条目数、excluded 是重复项数、attempted 是独
 
 快照缓存保存已验证 commit 的完整原始文件（按 SHA-256 blob 存储）和 Git blob/路径/大小/tree/archive 元数据；读取时复核并复制至新的私有临时目录，不在持久缓存中执行或分析。只有完整 SHA 能直接命中；浮动 branch/tag 每次在线重新获取，离线拒绝。分析键包含规范 GitHub 身份、完整原始快照摘要（含所有配置文件）、target、完整 scope policy/profile、analyzer/ruleset/attribution/remote/snippet 版本与片段开关，不含凭据或本地路径。
 
-分析记录复核 checksum、结构/计数不变量、snapshot record 对应关系及 scopeHash。仅稳定 Git 结果可复用；资源不足、文件读取失败、变化或回收失败不进入可复用分析缓存，partial 不会提升为 complete。命中报告的 generatedAt 为本次组装时间，原始证据和政策保留，并明确标记缓存命中。本地校验是完整性检测；不认证可重写全部缓存文件及摘要的恶意拥有者。analyzerVersion 为 0.1.0-t10.1（解析诊断位置变更，旧分析记录不复用），ESM ruleSetVersion 仍为 0.1.0-t07，schema/profile 不变。
+分析记录复核 checksum、结构/计数不变量、snapshot record 对应关系及 scopeHash。仅稳定 Git 结果可复用；资源不足、文件读取失败、变化或回收失败不进入可复用分析缓存，partial 不会提升为 complete。命中报告的 generatedAt 为本次组装时间，原始证据和政策保留，并明确标记缓存命中。本地校验是完整性检测；不认证可重写全部缓存文件及摘要的恶意拥有者。analyzerVersion 为 0.1.0-t10.1，ESM ruleSetVersion 为 0.1.0-t07，attributionVersion 为 0.1.0-t06.1；归因版本更新使可能包含旧 dependency 声明值的分析缓存失效，schema/profile 不变。
 
 #### 9.3 退出码
 

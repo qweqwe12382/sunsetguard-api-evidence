@@ -6,7 +6,7 @@ import { performance } from "node:perf_hooks";
 
 import { locationSchema } from "../domain/index.js";
 
-export const ATTRIBUTION_VERSION = "0.1.0-t06";
+export const ATTRIBUTION_VERSION = "0.1.0-t06.1";
 export const ATTRIBUTION_LIMITS = Object.freeze({
   maxFileBytes: 256 * 1024,
   maxTotalBytes: 2 * 1024 * 1024,

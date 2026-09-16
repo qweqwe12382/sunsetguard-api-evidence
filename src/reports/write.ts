@@ -126,6 +126,8 @@ export async function writeReportOutsideSources(
   let temporaryIdentity: BigIntStats | undefined;
   let parent: string | undefined;
   let parentIdentity: BigIntStats | undefined;
+  let output: string | undefined;
+  let outputLinked = false;
   let failed = false;
   try {
     const lexicalOutput = checkedPath(outputPath);
@@ -137,9 +139,10 @@ export async function writeReportOutsideSources(
     }
     parent = outputParent.canonical;
     parentIdentity = outputParent.canonicalIdentity;
-    const output = join(parent, basename(lexicalOutput));
-    requireOutside(boundaries, lexicalOutput, output);
-    await absent(output);
+    const publishedPath = join(parent, basename(lexicalOutput));
+    output = publishedPath;
+    requireOutside(boundaries, lexicalOutput, publishedPath);
+    await absent(publishedPath);
 
     const checkParents = async (): Promise<void> => {
       for (const boundary of boundaries) {
@@ -148,7 +151,7 @@ export async function writeReportOutsideSources(
       if (!sameBoundary(outputParent, await observeBoundary(outputParent.lexical)) ||
           !sameIdentity(parentIdentity!, await lstat(parent!, { bigint: true })) ||
           await realpath(parent!) !== parent) throw new ReportWriteError();
-      requireOutside(boundaries, lexicalOutput, output);
+      requireOutside(boundaries, lexicalOutput, publishedPath);
       if (temporary !== undefined) requireOutside(boundaries, join(dirname(lexicalOutput), basename(temporary)), temporary);
     };
 
@@ -172,12 +175,13 @@ export async function writeReportOutsideSources(
     const staged = await lstat(temporary, { bigint: true });
     if (!staged.isFile() || staged.nlink !== 1n || !sameIdentity(temporaryIdentity, staged) ||
         staged.size !== written.size) throw new ReportWriteError();
-    await absent(output);
+    await absent(publishedPath);
     // link is an atomic create-if-absent; rename would silently replace a file
     // that appeared after preflight. Both names are on the same filesystem.
-    await link(temporary, output);
+    await link(temporary, publishedPath);
+    outputLinked = true;
     await checkParents();
-    const published = await lstat(output, { bigint: true });
+    const published = await lstat(publishedPath, { bigint: true });
     if (!published.isFile() || published.nlink !== 2n || !sameIdentity(temporaryIdentity, published)) throw new ReportWriteError();
   } catch {
     failed = true;
@@ -185,10 +189,18 @@ export async function writeReportOutsideSources(
     if (handle !== undefined) {
       try { await handle.close(); } catch { failed = true; }
     }
+    const parentIsStillTrusted = async (): Promise<boolean> => {
+      if (parent === undefined || parentIdentity === undefined) return false;
+      try {
+        return await realpath(parent) === parent && sameIdentity(parentIdentity, await lstat(parent, { bigint: true }));
+      } catch {
+        return false;
+      }
+    };
     if (temporary !== undefined && temporaryIdentity !== undefined && parent !== undefined && parentIdentity !== undefined) {
       try {
         // Never unlink a replacement file or traverse a replaced parent during cleanup.
-        if (await realpath(parent) !== parent || !sameIdentity(parentIdentity, await lstat(parent, { bigint: true }))) {
+        if (!await parentIsStillTrusted()) {
           failed = true;
         } else {
           const staged = await lstat(temporary, { bigint: true });
@@ -196,6 +208,20 @@ export async function writeReportOutsideSources(
           else await unlink(temporary);
         }
       } catch { failed = true; }
+    }
+    if (failed && outputLinked && output !== undefined && temporaryIdentity !== undefined) {
+      // A successful hard link must not make a failed publication look
+      // successful. Run this after staging cleanup so a cleanup failure also
+      // rolls back the published name. Remove it only while the original
+      // parent is still trusted and the name still identifies our file.
+      if (await parentIsStillTrusted()) {
+        try {
+          const published = await lstat(output, { bigint: true });
+          if (published.isFile() && sameIdentity(temporaryIdentity, published)) await unlink(output);
+        } catch (error) {
+          if (!missing(error)) failed = true;
+        }
+      }
     }
   }
   if (failed) throw new ReportWriteError();

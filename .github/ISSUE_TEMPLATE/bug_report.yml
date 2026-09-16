@@ -1,0 +1,49 @@
+name: Bug report
+description: Report reproducible incorrect behavior using synthetic or public data.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include credentials, private source, local absolute paths, or vulnerability details. Use the security policy for sensitive reports.
+  - type: input
+    id: commit
+    attributes:
+      label: SunsetGuard commit
+      description: Full commit SHA or release identifier.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, Node.js version, and pnpm version.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Give commands and a small synthetic fixture that reproduce the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include sanitized output and the exit code.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Data check
+      options:
+        - label: I removed credentials, private source, and local absolute paths.
+          required: true

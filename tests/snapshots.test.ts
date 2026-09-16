@@ -4,7 +4,7 @@ import { isAbsolute, relative, resolve } from "node:path";
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { captureLocalSnapshot } from "../src/snapshots/index.js";
+import { captureLocalSnapshot, DEFAULT_SNAPSHOT_LIMITS } from "../src/snapshots/index.js";
 
 const temporaryBase = resolve(process.cwd(), ".test-tmp", "snapshots");
 let testRoot = "";
@@ -289,5 +289,39 @@ describe("captureLocalSnapshot", () => {
     await expect(captureLocalSnapshot(testRoot, {
       limits: { "bad\u0000key": 1 } as unknown as Record<string, number>,
     })).rejects.not.toThrow("bad\u0000key");
+  });
+
+  it("allows callers to lower snapshot limits but rejects attempts to raise defaults", async () => {
+    await write("source.ts", "export const value = true;\n");
+
+    const lowered = await captureLocalSnapshot(testRoot, { limits: { maxFileBytes: 1 } });
+    expect(lowered.scope.limits.maxFileBytes).toBe(1);
+    expect(gapCodes(lowered)).toContain("RESOURCE_LIMIT");
+
+    await expect(captureLocalSnapshot(testRoot, {
+      limits: { maxFileBytes: DEFAULT_SNAPSHOT_LIMITS.maxFileBytes + 1 },
+    })).rejects.toThrow("limits.maxFileBytes cannot exceed the default maximum");
+    await expect(captureLocalSnapshot(testRoot, {
+      limits: { timeoutMs: DEFAULT_SNAPSHOT_LIMITS.timeoutMs + 1 },
+    })).rejects.toThrow("limits.timeoutMs cannot exceed the default maximum");
+  });
+
+  it("reads each supplied snapshot limit once before using the validated value", async () => {
+    await write("source.ts", "export const value = true;\n");
+    let reads = 0;
+    const limits: Record<string, number> = {};
+    Object.defineProperty(limits, "maxFileBytes", {
+      enumerable: true,
+      get: () => ++reads === 1 ? 1 : DEFAULT_SNAPSHOT_LIMITS.maxFileBytes + 1,
+    });
+
+    const result = await captureLocalSnapshot(testRoot, { limits });
+    expect(reads).toBe(1);
+    expect(result.scope.limits.maxFileBytes).toBe(1);
+    expect(gapCodes(result)).toContain("RESOURCE_LIMIT");
+
+    await expect(captureLocalSnapshot(testRoot, {
+      limits: { maxFileBytes: undefined } as unknown as Record<string, number>,
+    })).rejects.toThrow("limits.maxFileBytes must be a positive safe integer");
   });
 });

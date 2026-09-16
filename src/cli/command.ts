@@ -4,7 +4,7 @@ import { DomainValidationError, parseApiTarget } from "../domain/index.js";
 import { renderReport, type ReportFormat } from "../reports/render.js";
 import { writeReportOutsideSource, writeReportOutsideSources } from "../reports/write.js";
 import { scanLocal, readConsumers, scanConsumers, ConsumersInputError } from "../scans/index.js";
-import { createCache } from "../cache/index.js";
+import { CacheError, createCache } from "../cache/index.js";
 
 export interface CliIo {
   readonly stdout: { write(chunk: string): unknown };
@@ -129,7 +129,15 @@ export function createProgram(io: CliIo, execution: CliOptions = {}): Command {
       } catch (error) { if (error instanceof DomainValidationError) throw new InputValidationError(error.message); throw error; }
       const plan = await readConsumers(options.repos);
       const protectedRoots = [plan.manifestPath, ...plan.entries.flatMap(entry => entry.kind === "local" ? [entry.path] : [])];
-      const cache = options.cache === undefined ? undefined : await createCache(options.cache, protectedRoots);
+      let cache;
+      try {
+        cache = options.cache === undefined ? undefined : await createCache(options.cache, protectedRoots);
+      } catch (error) {
+        if (error instanceof CacheError && error.code === "UNSAFE") {
+          throw new InputValidationError("--cache must identify a safe directory outside the consumers manifest and scanned local sources.");
+        }
+        throw error;
+      }
       if (options.cache !== undefined) protectedRoots.push(options.cache);
       const snippetOptions = { includeSnippets: options.includeSnippets === true };
       const report = await scanConsumers(plan, target, { ...execution, ...snippetOptions,
@@ -182,7 +190,7 @@ export async function runCli(argv: readonly string[], io: CliIo = process, execu
       code = error.code === "commander.helpDisplayed" ? EXIT_CODE.SUCCESS : EXIT_CODE.INVALID_ARGUMENTS;
       if (code !== EXIT_CODE.SUCCESS) {
         const message = error.code === "commander.missingMandatoryOptionValue"
-          ? "Required --package and --symbol options must be supplied."
+          ? missingRequiredOptionMessage(error)
           : error.code === "commander.unknownOption" ? "Unknown option. Use --help for supported options."
             : "Invalid command arguments. Use --help for required options.";
         await orderedIo.stderr.write(`${message}\n`);
@@ -196,7 +204,14 @@ export async function runCli(argv: readonly string[], io: CliIo = process, execu
   return writeFailed ? EXIT_CODE.INTERNAL_ERROR : code;
 }
 
-function isCommanderExit(error: unknown): error is { code: string } {
+function missingRequiredOptionMessage(error: { message?: string }): string {
+  const option = ["--repos", "--package", "--symbol"].find(candidate => error.message?.includes(candidate));
+  return option === undefined
+    ? "A required option must be supplied. Use --help for required options."
+    : `Required ${option} option must be supplied.`;
+}
+
+function isCommanderExit(error: unknown): error is { code: string; message?: string } {
   return typeof error === "object"
     && error !== null
     && "code" in error

@@ -99,7 +99,6 @@ function manifestAttribution(nearest: Nearest | undefined, target: ApiTarget): S
     status: "manifest-corroborated",
     reasons: ["The nearest manifest declares the target registry dependency; runtime resolution is not verified."],
     manifestFile: nearest.path,
-    declaredRange: first.range,
     dependencyKind: kinds.size === 1 ? first.kind : "unknown",
   }, unresolved: [] };
 }

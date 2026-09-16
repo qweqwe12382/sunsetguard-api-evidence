@@ -74,11 +74,20 @@ function createScope(options: LocalSnapshotOptions): SnapshotScope {
   const limitKeys: readonly (keyof SnapshotLimits)[] = [
     "maxFileBytes", "maxTotalBytes", "maxFiles", "maxEntries", "maxDepth", "timeoutMs",
   ];
-  for (const key of Object.keys(suppliedLimits)) {
+  const suppliedKeys = Object.keys(suppliedLimits);
+  for (const key of suppliedKeys) {
     if (!limitKeys.includes(key as keyof SnapshotLimits)) throw new TypeError("unknown limit property");
   }
-  const limits = { ...DEFAULT_SNAPSHOT_LIMITS, ...suppliedLimits };
-  for (const key of limitKeys) validatePositiveInteger(`limits.${key}`, limits[key]);
+  const limits: SnapshotLimits = { ...DEFAULT_SNAPSHOT_LIMITS };
+  for (const suppliedKey of suppliedKeys) {
+    const key = suppliedKey as keyof SnapshotLimits;
+    const supplied = suppliedLimits[key];
+    validatePositiveInteger(`limits.${key}`, supplied);
+    if (supplied > DEFAULT_SNAPSHOT_LIMITS[key]) {
+      throw new TypeError(`limits.${key} cannot exceed the default maximum`);
+    }
+    limits[key] = supplied;
+  }
 
   const additions = options.excludeDirectories ?? [];
   if (!Array.isArray(additions)) throw new TypeError("excludeDirectories must be an array");

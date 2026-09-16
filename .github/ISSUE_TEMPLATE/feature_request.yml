@@ -1,0 +1,33 @@
+name: Feature request
+description: Propose a bounded addition to SunsetGuard's evidence workflow.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Investigation task
+      description: What concrete API-reference question should this help answer?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Required evidence
+      description: What evidence should the report show, and which gaps must remain visible?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed scope and limits
+      description: Describe syntax, inputs, resource bounds, and an example using public or synthetic data.
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Product boundaries
+      options:
+        - label: This request does not infer safe deletion, migration, or runtime execution from a missing match.
+          required: true

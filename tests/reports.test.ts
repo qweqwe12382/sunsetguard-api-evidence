@@ -50,6 +50,24 @@ describe("report rendering", () => {
     expect(report.results[0]!.findings[0]!.snippet).toBe("private-canary-source");
   });
 
+  it.each(["json", "text", "markdown"] as const)("does not export legacy downstream declaredRange data in %s", async format => {
+    const report = await fixtureReport();
+    const privateValue = "ALPHANUMERICONLYVALUE1234567890";
+    const attribution = report.results[0]!.bindings[0]!.attribution;
+    attribution.manifestFile = "package.json";
+    attribution.dependencyKind = "dependency";
+    attribution.declaredRange = privateValue;
+    const rendered = renderReport(report, format);
+    expect(rendered).not.toContain(privateValue);
+    expect(rendered).not.toContain("declared-range");
+    expect(rendered).toContain("package.json");
+    expect(rendered).toContain("dependency");
+    if (format === "json") {
+      expect(JSON.parse(rendered).results[0].bindings[0].attribution).not.toHaveProperty("declaredRange");
+    }
+    expect(attribution.declaredRange).toBe(privateValue);
+  });
+
   it("refuses an inconsistent report before rendering output", async () => {
     const report = await fixtureReport();
     report.summary.detected = 20;

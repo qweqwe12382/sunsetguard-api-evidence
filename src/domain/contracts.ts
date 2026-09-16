@@ -37,6 +37,7 @@ export interface Binding {
     status: AttributionStatus;
     reasons: string[];
     manifestFile?: string;
+    /** @deprecated Legacy input compatibility only. New scans and rendered reports omit this value. */
     declaredRange?: string;
     dependencyKind?: "dependency" | "devDependency" | "peerDependency" | "optionalDependency" | "unknown";
     resolvedVersion?: string;
