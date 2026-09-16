@@ -41,16 +41,17 @@
 | `pnpm audit --prod --registry https://registry.npmjs.org` | passed | 退出 0；No known vulnerabilities found；仅覆盖当前 registry advisory 数据 |
 | 独立只读集成审查 | passed | 归因隐私、缓存、写入竞态、CLI、limit getter、CI SHA 和安全联系流程复核后无阻断项 |
 | GitHub Actions 首轮双平台运行 | failed | run 35050528885：Windows 全通过；Ubuntu 因目录顺序假设和大小写测试假设 2 项失败，促成本轮确定性修复 |
+| GitHub Actions 修复后双平台运行 | passed | run 35051434149：Ubuntu 52 秒、Windows 1 分 16 秒；锁定依赖安装、typecheck、lint、build 和 tests 全通过，head `f2a4ff2ea018ad71c7e05c828e06b739c3296a8e` |
 
 此前普通 Codex 隔离账户中的一次定向缓存测试因 Windows 用户目录祖先 `realpath` 权限出现 15 项环境失败；未将其写成产品通过。随后在正常主机权限运行完整 `pnpm run check`，当时结果为 526 passed / 1 skipped。
 
-确定性修复后的首轮本机完整复跑有 1 项 remote Worker 生命周期用例在 10 秒处偶发超时；该用例随即单独 6/6 通过，第二次完整 `pnpm run check` 为 36 files / 526 passed / 1 skipped。独立复核后又补充“后续目录 entry 超限仍保留此前证据”的回归测试：相关 snapshot 测试 20/20 通过。受限账户下的完整复跑因系统临时目录祖先权限产生 29 项 cache I/O 环境失败；在正常主机权限重跑同一 `pnpm run check` 后为 36 files / 527 passed / 1 skipped。所有失败均保留记录，未改写为首次通过；跳过项仍是 Windows 无符号链接创建权限环境的既有用例。修复后的 GitHub Actions 结果需以后续提交实际运行结果为准。
+确定性修复后的首轮本机完整复跑有 1 项 remote Worker 生命周期用例在 10 秒处偶发超时；该用例随即单独 6/6 通过，第二次完整 `pnpm run check` 为 36 files / 526 passed / 1 skipped。独立复核后又补充“后续目录 entry 超限仍保留此前证据”的回归测试：相关 snapshot 测试 20/20 通过。受限账户下的完整复跑因系统临时目录祖先权限产生 29 项 cache I/O 环境失败；在正常主机权限重跑同一 `pnpm run check` 后为 36 files / 527 passed / 1 skipped。所有失败均保留记录，未改写为首次通过；跳过项仍是 Windows 无符号链接创建权限环境的既有用例。修复提交随后在 GitHub Actions 的 Ubuntu 和 Windows 任务全部通过。
 
 本轮不改变 schemaVersion、analysisProfile、analyzerVersion 或 ESM ruleSetVersion；仅 attributionVersion 变化并使旧分析缓存不命中，raw snapshot cache 仍可复核后用于重算。没有升级依赖、执行下游代码、安装下游依赖、发布 npm 包、创建 Release 或声称第三方采用。
 
-已知边界：Node 路径 API 的身份检查不能提供针对完全控制输出目录且持续竞态的 OS 级原子隔离；许可证和版权主体仍需项目所有者选择；公开仓库的 GitHub private vulnerability reporting 设置尚未启用；远端 CI、其他平台长期运行、独立人工精度复核和真实维护者使用仍以实际证据为准。
+已知边界：Node 路径 API 的身份检查不能提供针对完全控制输出目录且持续竞态的 OS 级原子隔离；许可证和版权主体仍需项目所有者选择；公开仓库的 GitHub private vulnerability reporting 设置尚未启用；macOS 与其他平台长期运行、独立人工精度复核和真实维护者使用仍以实际证据为准。
 
-下一项：提交确定性枚举修复并核验后续远端 CI；随后在申请开源项目赞助前确认许可证，并取得一个真实维护者调查任务与人工反馈，不用下载量、测试数或公开仓库状态替代采用证据。
+下一项：在申请开源项目赞助前确认许可证和版权主体，并取得一个真实维护者调查任务与人工反馈，不用下载量、测试数或公开仓库状态替代采用证据。
 
 ### 2026-09-12 · GitHub 私有仓库上传
 
