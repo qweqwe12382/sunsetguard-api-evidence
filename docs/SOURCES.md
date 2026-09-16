@@ -2,7 +2,7 @@
 
 对应分文件：`docs/SOURCES.md`。
 
-文档版本：0.2.0；核对日期：2026-09-10。
+文档版本：0.2.1；核对日期：2026-09-16。
 
 本文件区分“官方文档支持的事实”和“项目仍需实际验证的假设”。引用不代表推荐某个供应商，也不代表对其服务持续可用性的保证。
 
@@ -13,6 +13,12 @@
 来源：<https://openai.com/form/codex-for-oss/>
 
 用途与边界：核对公开申请条件：实际使用、生态重要性、活跃维护。不能据此推算本项目入选概率。
+
+#### S1a · OpenAI：Codex for Open Source Program Terms
+
+来源：<https://developers.openai.com/codex/codex-for-oss-terms>
+
+用途与边界：核对申请信息需准确完整、维护者身份可被验证、API credits/Codex Security 只能用于有权管理或审查的仓库与代码，以及申请材料不应包含机密信息。项目申请材料不能把公开可读的第三方源码视为已取得使用计划权益下的审查授权。
 
 #### S2 · OpenAI：Custom instructions with AGENTS.md
 

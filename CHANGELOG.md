@@ -4,10 +4,14 @@ SunsetGuard is not yet published as a package. This file records user-visible re
 
 ## Unreleased
 
+## [0.1.0] - 2026-09-16
+
 ### Added
 
 - Linux and Windows CI for locked installation, type checking, linting, building, and offline tests.
 - Contribution guidance, a security reporting policy, and structured issue templates.
+- MIT licensing in the repository and local trial bundle.
+- Maintainer ownership, CODEOWNERS, release notes, and a truth-bounded Codex for Open Source application packet.
 
 ### Fixed
 

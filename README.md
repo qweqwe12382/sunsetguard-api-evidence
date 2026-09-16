@@ -65,7 +65,7 @@ The tool never treats a missing reference as proof of migration or safe deletion
 
 GitHub access is anonymous by default. A token is read only when the caller explicitly selects `SUNSETGUARD_GITHUB_TOKEN`; it is not taken from Git or `gh` login state. Cache and report paths are checked against source roots, and writes refuse to overwrite existing files.
 
-The package is private for npm (`private: true`) and has not been published. This public repository does not yet declare a software license.
+The package remains private for npm (`private: true`) and has not been published to the registry. The source repository and local trial bundle are licensed under MIT.
 
 ## Documentation
 
@@ -76,6 +76,11 @@ The package is private for npm (`private: true`) and has not been published. Thi
 - [Design decisions](docs/DECISIONS.md) — architecture and security trade-offs.
 - [Contributing](CONTRIBUTING.md) — supported scope, development checks, and review expectations.
 - [Security policy](SECURITY.md) — reporting process and security-sensitive areas.
-- [Changelog](CHANGELOG.md) — user-visible changes that are not yet published as a package release.
+- [Maintainers](MAINTAINERS.md) — project ownership and review responsibilities.
+- [Changelog](CHANGELOG.md) — user-visible changes by release.
+
+## License
+
+[MIT](LICENSE) © 2026 qweqwe12382.
 
 The benchmark labels in `benchmarks/` are provisional and are not a general accuracy claim. Automatic ecosystem discovery, historical comparison, and migration patches are not implemented.

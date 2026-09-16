@@ -55,16 +55,21 @@ const sourcePaths = await sources("src");
 const sourcePackage = JSON.parse((await sourceFile("package.json")).toString("utf8"));
 assert.equal(sourcePackage.private, true);
 assert.equal(sourcePackage.name, "sunsetguard");
+assert.equal(sourcePackage.license, "MIT");
+assert.equal(sourcePackage.author, "qweqwe12382");
 assert.deepEqual(Object.keys(sourcePackage.dependencies).sort(), ["commander", "tar-stream", "typescript", "zod"]);
 assert.ok(Object.values({ ...sourcePackage.dependencies, ...sourcePackage.devDependencies }).every(value => /^\d+\.\d+\.\d+$/.test(value)));
 const runtimePackage = {
   name: sourcePackage.name, version: sourcePackage.version, private: true, description: sourcePackage.description,
+  license: sourcePackage.license, author: sourcePackage.author, homepage: sourcePackage.homepage,
+  repository: sourcePackage.repository, bugs: sourcePackage.bugs,
   type: sourcePackage.type, packageManager: sourcePackage.packageManager, engines: sourcePackage.engines, bin: sourcePackage.bin,
   scripts: { start: "node dist/cli/bin.js" }, dependencies: sourcePackage.dependencies, devDependencies: sourcePackage.devDependencies,
 };
 const contents = new Map([
   ["package.json", Buffer.from(JSON.stringify(runtimePackage, null, 2) + "\n")],
   [".npmrc", Buffer.from("ignore-scripts=true\nsave-exact=true\nengine-strict=true\n")],
+  ["LICENSE", await sourceFile("LICENSE")],
   ["README.md", await sourceFile("docs/LOCAL_PACKAGE.md")],
 ]);
 for (const path of ["pnpm-lock.yaml", "docs/SPEC.md", "examples/consumers.local.json", "examples/consumers.github.json", "fixtures/consumer/source.ts"]) contents.set(path, await sourceFile(path));

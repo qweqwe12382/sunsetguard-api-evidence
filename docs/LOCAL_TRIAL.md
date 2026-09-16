@@ -1,6 +1,6 @@
 # 本地试用指南
 
-适用状态：2026-09-12 的 T10 本地交付版本。当前为 private 本地 CLI，未发布 npm 包，未验证第三方采用。使用 Node 24.x 和 pnpm 11.7.0。
+适用状态：2026-09-16 的 v0.1.0 本地交付版本。源码与试用包采用 MIT 许可证；npm 包仍保持 private 且未发布，第三方采用尚未验证。使用 Node 24.x 和 pnpm 11.7.0。
 
 独立试用包包含编译后的 CLI。可在工作区运行 `pnpm run bundle:local` 生成新的本地归档，再按随包 [安装说明](LOCAL_PACKAGE.md) 解包，只安装工具运行依赖，即可从任意工作目录使用。归档、摘要和本地验收目录默认不纳入版本库；包未捆绑 Node/pnpm 或 node_modules，首次依赖安装需要 registry，已有对应 pnpm store 时可加 `--offline`。
 

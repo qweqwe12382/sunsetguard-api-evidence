@@ -21,7 +21,7 @@ const checks = [], cases = {}; let artifact, trial, stage = "arguments";
 function checked(name, value, details = {}) { assert.ok(value, name); checks.push({ name, status: "passed", ...details }); }
 function safeRelative(path) {
   return typeof path === "string" && path.length < 240 && !path.includes("\\") && path.split("/").every(part => /^[A-Za-z0-9_.-]+$/.test(part) && part !== "." && part !== "..") &&
-    (["package.json", "pnpm-lock.yaml", ".npmrc", "README.md", "fixtures/consumer/source.ts", "docs/SPEC.md", "examples/consumers.local.json", "examples/consumers.github.json"].includes(path) || /^src\/(?:[A-Za-z0-9_.-]+\/)*[A-Za-z0-9_.-]+\.ts$/.test(path) || /^dist\/(?:[A-Za-z0-9_.-]+\/)*[A-Za-z0-9_.-]+\.(?:js|js\.map|d\.ts|d\.ts\.map)$/.test(path));
+    (["package.json", "pnpm-lock.yaml", ".npmrc", "LICENSE", "README.md", "fixtures/consumer/source.ts", "docs/SPEC.md", "examples/consumers.local.json", "examples/consumers.github.json"].includes(path) || /^src\/(?:[A-Za-z0-9_.-]+\/)*[A-Za-z0-9_.-]+\.ts$/.test(path) || /^dist\/(?:[A-Za-z0-9_.-]+\/)*[A-Za-z0-9_.-]+\.(?:js|js\.map|d\.ts|d\.ts\.map)$/.test(path));
 }
 async function safeDirectory(path) {
   const absolute = resolve(path);
@@ -126,12 +126,13 @@ try {
   assert.ok(Array.isArray(bundle.files) && bundle.files.length > 0 && bundle.files.length <= MAX_FILES);
   const names = new Set(); let total = 0;
   for (const file of bundle.files) { assert.ok(safeRelative(file.path) && !names.has(file.path.toLowerCase())); names.add(file.path.toLowerCase()); assert.match(file.sha256, /^[a-f0-9]{64}$/); assert.ok(Number.isSafeInteger(file.size) && file.size >= 0); total += file.size; }
-  assert.ok(total <= MAX_BYTES); for (const mandatory of ["package.json", "pnpm-lock.yaml", ".npmrc", "dist/cli/bin.js", "dist/analyzer/worker-entry.js", "dist/remote/worker-entry.js"]) assert.ok(names.has(mandatory));
+  assert.ok(total <= MAX_BYTES); for (const mandatory of ["package.json", "pnpm-lock.yaml", ".npmrc", "license", "dist/cli/bin.js", "dist/analyzer/worker-entry.js", "dist/remote/worker-entry.js"]) assert.ok(names.has(mandatory));
   const archive = await readBounded(join(bundleDirectory, bundle.archive), MAX_BYTES); assert.equal(archive.length, bundle.archiveBytes); assert.equal(sha(archive), bundle.archiveSha256);
   const trialParent = resolve(workspace, "..", "SunsetGuard-trials"); await mkdir(trialParent, { recursive: true }); await safeDirectory(trialParent);
   trial = await mkdtemp(join(trialParent, "local-install-")); const install = join(trial, "sunsetguard"); await mkdir(install, { mode: 0o700 });
   checked("archive-integrity-and-allowlist", true, await unpack(archive, bundle, install));
-  const packageJson = JSON.parse(await readFile(join(install, "package.json"), "utf8")); assert.equal(packageJson.name, "sunsetguard"); assert.equal(packageJson.private, true); assert.deepEqual(Object.keys(packageJson.scripts), ["start"]);
+  const packageJson = JSON.parse(await readFile(join(install, "package.json"), "utf8")); assert.equal(packageJson.name, "sunsetguard"); assert.equal(packageJson.private, true); assert.equal(packageJson.license, "MIT"); assert.equal(packageJson.author, "qweqwe12382"); assert.deepEqual(Object.keys(packageJson.scripts), ["start"]);
+  const license = await readFile(join(install, "LICENSE"), "utf8"); assert.match(license, /^MIT License\r?\n/); assert.match(license, /Copyright \(c\) 2026 qweqwe12382/);
   assert.equal(packageJson.scripts.start, "node dist/cli/bin.js"); assert.equal(packageJson.bin.sunsetguard, "dist/cli/bin.js"); assert.equal(packageJson.type, "module");
   assert.deepEqual(Object.keys(packageJson.dependencies).sort(), ["commander", "tar-stream", "typescript", "zod"]);
   assert.ok(Object.values({ ...packageJson.dependencies, ...packageJson.devDependencies }).every(version => typeof version === "string" && /^\d+\.\d+\.\d+$/.test(version)));
@@ -211,7 +212,7 @@ try {
   checked("both-worker-entries-contained-and-executed", ["dist/analyzer/worker-entry.js", "dist/remote/worker-entry.js"].every(path => events.some(event => event.event === "worker" && event.path === path) && events.some(event => event.event === "module" && event.path === path && event.thread > 0)));
   checked("loaded-runtime-dependencies-contained", events.some(event => event.event === "module" && event.path.startsWith("node_modules/")), { uniqueModules: new Set(events.filter(event => event.event === "module").map(event => event.path)).size });
   const summary = { format: "sunsetguard-local-install-checks-v1", status: "passed", artifact: `artifacts/${basename(artifact)}`, trial: `../SunsetGuard-trials/${basename(trial)}`, archiveSha256: bundle.archiveSha256,
-    analyzerVersion: bundle.analyzerVersion, ruleSetVersion: bundle.ruleSetVersion, checks, cases, limitations: ["Private local trial only; no package publication, maintainer adoption or production validation is implied.", "Archive and cache checks verify integrity, not authenticity against someone rewriting all bytes and metadata.", "Instrumented execution checks module and Worker locations; the same positive case also ran without instrumentation.", "The installation and generated original fixtures are retained for inspection; fixture code was never executed."] };
+    analyzerVersion: bundle.analyzerVersion, ruleSetVersion: bundle.ruleSetVersion, checks, cases, limitations: ["Local trial bundle only; no npm publication, maintainer adoption or production validation is implied.", "Archive and cache checks verify integrity, not authenticity against someone rewriting all bytes and metadata.", "Instrumented execution checks module and Worker locations; the same positive case also ran without instrumentation.", "The installation and generated original fixtures are retained for inspection; fixture code was never executed."] };
   await writeFile(join(artifact, "checks.json"), JSON.stringify(summary, null, 2) + "\n", { flag: "wx" }); process.stdout.write(JSON.stringify({ status: "passed", artifact: summary.artifact, trial: summary.trial, checks: checks.length }) + "\n");
 } catch {
   const result = { format: "sunsetguard-local-install-checks-v1", status: "failed", stage, checks, cases, ...(artifact === undefined ? {} : { artifact: `artifacts/${basename(artifact)}` }), ...(trial === undefined ? {} : { trial: `../SunsetGuard-trials/${basename(trial)}` }) };

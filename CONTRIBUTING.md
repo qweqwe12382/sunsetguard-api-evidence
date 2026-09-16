@@ -21,4 +21,4 @@ The complete check runs strict TypeScript validation, ESLint, a production build
 - Do not include downstream source, secrets, local absolute paths, generated reports, caches, or dependency directories in a commit.
 - State which checks actually ran. A skipped or unrun check is not a pass.
 
-Open an issue before a large feature or scope expansion. Small fixes with focused tests can go directly to a pull request. This repository currently has no declared software license; the project owner must resolve licensing separately before broader redistribution or package publication.
+Open an issue before a large feature or scope expansion. Small fixes with focused tests can go directly to a pull request. Contributions are accepted under the repository's [MIT License](LICENSE).

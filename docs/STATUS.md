@@ -1,20 +1,45 @@
 # SunsetGuard 开发状态
 
-工作文档版本：0.5.2（2026-09-16）；原始交付基线 0.2.0。本文件记录实际开发；原始完整指南保留最初的 pending 模板。
+工作文档版本：0.6.0（2026-09-16）；原始交付基线 0.2.0。本文件记录实际开发；原始完整指南保留最初的 pending 模板。
 
 ### 当前状态
 
 - 当前阶段：P3，T01—T07 及 T09—T10 工程交付已完成（T08 可选、未实施）；T07 标签仍为 provisional。交付范围按用户最新选择限定为本地试用，不越过 T11 的实际试用门槛。
 - GitHub 交付：已按用户授权推送到仓库 [qweqwe12382/sunsetguard-api-evidence](https://github.com/qweqwe12382/sunsetguard-api-evidence)，当前 `main` 与本地同步；仓库可见性为 public。
 - 目标复核（2026-09-12 晚）：用户确认的“可本地试用”阶段目标已达成；PROJECT_REPORT 的 P3 维护者真实任务门槛仍未验证，不能把工程交付完成写成整个项目落地或全部产品验收完成。最新独立复验见 artifacts/local-install-J5vlT6/checks.json。
-- 最近完成任务：T10 本地交付补充；首个解析诊断位置、带编译产物的私有目录包与独立运行验收。原有明确清单、批量 CLI、缓存、离线重放及 Markdown 保持可用。
+- 最近完成任务：v0.1.0 开源发布候选与 Codex for Open Source 申请准备；T10 的明确清单、批量 CLI、缓存、离线重放及 Markdown 保持可用。
 - 产品源码：单目标单目录/批量 CLI、本地/公开 GitHub 快照、四类引用证据、有限配置归因、隔离分析线程、JSON/文本/Markdown、安全外部报告、固定样本评估与有界缓存。
 - 项目 typecheck/lint/build：2026-09-16 全部实际通过；测试 36 个文件，527 项通过、1 项因 Windows 文件符号链接创建权限拒绝而跳过。
-- 独立本地包：artifacts/local-trial-oXUESF，180 文件 / 241213 字节，SHA-256 `0d340ed19095ba57d7f49203c08e8d2077d4c644783f21afc38e873f3c8305db`；工作区外生产依赖安装与 20 项 CLI/Worker/缓存验收通过，见 artifacts/local-install-If3Mi2/checks.json。需要 Node 24/pnpm 11.7，未捆绑运行时或依赖目录。
+- 独立本地包：artifacts/local-trial-JpB9t0，181 文件 / 241990 字节，SHA-256 `86b3eeb6b3012a3ec827c0304ac5d352b63d0461f731dba1129e2ffe0c39ab98`；工作区外生产依赖安装与 20 项 CLI/Worker/缓存/许可证验收通过，见 artifacts/local-install-Xwbdok/checks.json。需要 Node 24/pnpm 11.7，未捆绑运行时或依赖目录。
 - 外部 API 实际验证：T09 单仓库和 T10 两个固定仓库的匿名 GitHub metadata/commit/tree/archive 获取成功；不代表发现服务、生产 SLA 或异常网络场景均已实测。
 - 真实下游扫描：T07 的 3 仓库 / 6 选定文件审计保留；T10 真实 CLI 获取 rc-util/reactstrap 共 601 个文件，默认 461 eligible / 460 analyzed / 1 parse failed；两仓库 unknown+partial，在线与离线结果一致。独立人工精度审计未运行，不作为通用准确率。
 - 第三方维护者试用：未验证。
-- 名称和 GitHub 账号已用于本次仓库交付；仓库现已公开，新增双平台 CI 与维护入口。许可证仍未确认，npm 发布仍未处理；GitHub private vulnerability reporting 当前未启用，安全策略提供不公开细节的联系请求表单。
+- 名称和 GitHub 账号已用于本次仓库交付；仓库公开，MIT 许可证与维护入口已补齐，npm 仍保持 private 且未发布。GitHub private vulnerability reporting 已启用并实际复核，安全策略保留公开联系请求作为备用入口。
+
+### 2026-09-16 · MIT 与 Codex for Open Source 发布候选
+
+用户明确选择 MIT，并要求完善 Codex for Open Source 所需材料。本轮使用仓库所有者 GitHub 标识 `qweqwe12382` 作为 MIT 版权主体；没有编造真实姓名、ChatGPT 邮箱或 OpenAI Organization ID。
+
+- 新增标准 MIT `LICENSE`，`package.json` 写入 `license=MIT` 与 `author=qweqwe12382`，README、CONTRIBUTING、本地试用文档和 CHANGELOG 同步许可证与 `v0.1.0` 发布边界；`private: true` 保持不变，不自动发布 npm 包。
+- 新增 `MAINTAINERS.md`、`.github/CODEOWNERS`、`docs/releases/v0.1.0.md` 和 `docs/CODEX_FOR_OSS_APPLICATION.md`。申请包逐字段映射官方表单，三段可粘贴英文回答分别为 490、475、480 字符，均在 500 字符上限内；个人字段保留明确占位。
+- 申请中的 API credits 计划只用于 SunsetGuard 自身的 issue triage、PR review、合成回归 fixture、CI 诊断和发布说明，不向 API 发送私有下游源码、秘密、本地路径或用户报告，也不把公开可读视为取得 Codex Security/API 审查授权。
+- 自定义试用包现在强制携带 `LICENSE`，运行时 `package.json` 保留许可证、作者、主页、仓库和问题入口；独立验证器同时检查 MIT 元数据和许可证正文。
+- GitHub REST 写操作因当前 `gh` 缺少认证返回 401，没有被写成成功；随后通过已登录仓库设置页启用 private vulnerability reporting，页面显示保存成功，公开读取接口复核为 `enabled=true`。
+
+实际检查：
+
+| 命令/检查 | 结果 | 证据 |
+|---|---|---|
+| 申请回答长度检查 | passed | 三段英文回答 490 / 475 / 480 字符 |
+| `pnpm install --frozen-lockfile --ignore-scripts` | passed | 锁文件一致；无依赖变更，未运行生命周期脚本 |
+| `pnpm run check` | passed with skip | typecheck、lint、build 通过；36 files / 527 passed / 1 skipped，共 528 |
+| `pnpm run bundle:local` | passed | 181 文件 / 241990 字节；SHA-256 `86b3eeb6b3012a3ec827c0304ac5d352b63d0461f731dba1129e2ffe0c39ab98` |
+| 首次 `pnpm run verify:local artifacts/local-trial-JpB9t0` | failed | 新增 `LICENSE` 后 mandatory 名称集合已转小写但断言仍用大写，archive 阶段拒绝；未写成通过 |
+| 修复后同一独立包验收 | passed | `artifacts/local-install-Xwbdok`；解包、生产依赖、CLI、Worker、缓存与许可证共 20 checks 全通过 |
+| `pnpm audit --prod --registry https://registry.npmjs.org` | passed | No known vulnerabilities found；仅覆盖当前 registry advisory 数据 |
+| GitHub private vulnerability reporting | passed | 设置页保存成功；`GET /private-vulnerability-reporting` 返回 `enabled=true` |
+
+本节记录的是发布候选准备；GitHub Release、tag、发布提交的远端 CI 和申请表提交仍以之后的实际操作为准。申请表条款需提交人自行确认，真实姓名、账号邮箱与 Organization ID 不进入仓库。
 
 ### 2026-09-16 · 公开仓库加固与完整复验
 
@@ -49,9 +74,9 @@
 
 本轮不改变 schemaVersion、analysisProfile、analyzerVersion 或 ESM ruleSetVersion；仅 attributionVersion 变化并使旧分析缓存不命中，raw snapshot cache 仍可复核后用于重算。没有升级依赖、执行下游代码、安装下游依赖、发布 npm 包、创建 Release 或声称第三方采用。
 
-已知边界：Node 路径 API 的身份检查不能提供针对完全控制输出目录且持续竞态的 OS 级原子隔离；许可证和版权主体仍需项目所有者选择；公开仓库的 GitHub private vulnerability reporting 设置尚未启用；macOS 与其他平台长期运行、独立人工精度复核和真实维护者使用仍以实际证据为准。
+已知边界：Node 路径 API 的身份检查不能提供针对完全控制输出目录且持续竞态的 OS 级原子隔离；macOS 与其他平台长期运行、独立人工精度复核和真实维护者使用仍以实际证据为准。
 
-下一项：在申请开源项目赞助前确认许可证和版权主体，并取得一个真实维护者调查任务与人工反馈，不用下载量、测试数或公开仓库状态替代采用证据。
+下一项：完成 `v0.1.0` tag、GitHub Release、发布提交双平台 CI；申请人补入真实个人字段并确认条款后再提交申请。真实维护者调查与人工反馈仍是后续外部验证，不用下载量、测试数或公开状态替代采用证据。
 
 ### 2026-09-12 · GitHub 私有仓库上传
 
