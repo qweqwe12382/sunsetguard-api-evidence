@@ -16,6 +16,8 @@ SunsetGuard answers a narrow question: where does a specified package, exact mod
 
 Requires Node.js 24.x and pnpm 11.7.0.
 
+For the independently verified bundle, use the [v0.1.0 release](https://github.com/qweqwe12382/sunsetguard-api-evidence/releases/tag/v0.1.0) and check `SHA256SUMS.txt` before extraction.
+
 ```sh
 pnpm install --frozen-lockfile --ignore-scripts
 pnpm run build
@@ -78,6 +80,7 @@ The package remains private for npm (`private: true`) and has not been published
 - [Security policy](SECURITY.md) — reporting process and security-sensitive areas.
 - [Maintainers](MAINTAINERS.md) — project ownership and review responsibilities.
 - [Changelog](CHANGELOG.md) — user-visible changes by release.
+- [Codex for Open Source application packet](docs/CODEX_FOR_OSS_APPLICATION.md) — verified repository fields, copy-ready responses, and applicant-only fields.
 
 ## License
 

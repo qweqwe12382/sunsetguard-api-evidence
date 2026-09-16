@@ -1,13 +1,13 @@
 # SunsetGuard 开发状态
 
-工作文档版本：0.6.0（2026-09-16）；原始交付基线 0.2.0。本文件记录实际开发；原始完整指南保留最初的 pending 模板。
+工作文档版本：0.6.1（2026-09-16）；原始交付基线 0.2.0。本文件记录实际开发；原始完整指南保留最初的 pending 模板。
 
 ### 当前状态
 
 - 当前阶段：P3，T01—T07 及 T09—T10 工程交付已完成（T08 可选、未实施）；T07 标签仍为 provisional。交付范围按用户最新选择限定为本地试用，不越过 T11 的实际试用门槛。
-- GitHub 交付：已按用户授权推送到仓库 [qweqwe12382/sunsetguard-api-evidence](https://github.com/qweqwe12382/sunsetguard-api-evidence)，当前 `main` 与本地同步；仓库可见性为 public。
+- GitHub 交付：已按用户授权推送到公开仓库 [qweqwe12382/sunsetguard-api-evidence](https://github.com/qweqwe12382/sunsetguard-api-evidence)，并发布 [v0.1.0](https://github.com/qweqwe12382/sunsetguard-api-evidence/releases/tag/v0.1.0)；该 tag 固定到 `250de4ac61a3b15fedc0d1020ad18352bc832e7e`。
 - 目标复核（2026-09-12 晚）：用户确认的“可本地试用”阶段目标已达成；PROJECT_REPORT 的 P3 维护者真实任务门槛仍未验证，不能把工程交付完成写成整个项目落地或全部产品验收完成。最新独立复验见 artifacts/local-install-J5vlT6/checks.json。
-- 最近完成任务：v0.1.0 开源发布候选与 Codex for Open Source 申请准备；T10 的明确清单、批量 CLI、缓存、离线重放及 Markdown 保持可用。
+- 最近完成任务：v0.1.0 开源发布与 Codex for Open Source 申请准备；T10 的明确清单、批量 CLI、缓存、离线重放及 Markdown 保持可用。
 - 产品源码：单目标单目录/批量 CLI、本地/公开 GitHub 快照、四类引用证据、有限配置归因、隔离分析线程、JSON/文本/Markdown、安全外部报告、固定样本评估与有界缓存。
 - 项目 typecheck/lint/build：2026-09-16 全部实际通过；测试 36 个文件，527 项通过、1 项因 Windows 文件符号链接创建权限拒绝而跳过。
 - 独立本地包：artifacts/local-trial-JpB9t0，181 文件 / 241990 字节，SHA-256 `86b3eeb6b3012a3ec827c0304ac5d352b63d0461f731dba1129e2ffe0c39ab98`；工作区外生产依赖安装与 20 项 CLI/Worker/缓存/许可证验收通过，见 artifacts/local-install-Xwbdok/checks.json。需要 Node 24/pnpm 11.7，未捆绑运行时或依赖目录。
@@ -16,7 +16,7 @@
 - 第三方维护者试用：未验证。
 - 名称和 GitHub 账号已用于本次仓库交付；仓库公开，MIT 许可证与维护入口已补齐，npm 仍保持 private 且未发布。GitHub private vulnerability reporting 已启用并实际复核，安全策略保留公开联系请求作为备用入口。
 
-### 2026-09-16 · MIT 与 Codex for Open Source 发布候选
+### 2026-09-16 · MIT 与 Codex for Open Source 发布
 
 用户明确选择 MIT，并要求完善 Codex for Open Source 所需材料。本轮使用仓库所有者 GitHub 标识 `qweqwe12382` 作为 MIT 版权主体；没有编造真实姓名、ChatGPT 邮箱或 OpenAI Organization ID。
 
@@ -39,7 +39,9 @@
 | `pnpm audit --prod --registry https://registry.npmjs.org` | passed | No known vulnerabilities found；仅覆盖当前 registry advisory 数据 |
 | GitHub private vulnerability reporting | passed | 设置页保存成功；`GET /private-vulnerability-reporting` 返回 `enabled=true` |
 
-本节记录的是发布候选准备；GitHub Release、tag、发布提交的远端 CI 和申请表提交仍以之后的实际操作为准。申请表条款需提交人自行确认，真实姓名、账号邮箱与 Organization ID 不进入仓库。
+发布结果：提交 `250de4ac61a3b15fedc0d1020ad18352bc832e7e` 的 [GitHub Actions run 35052949745](https://github.com/qweqwe12382/sunsetguard-api-evidence/actions/runs/35052949745) 成功完成 2 个 job，耗时 1m17s；Ubuntu 为 36 files / 526 passed / 2 skipped，Windows 为 36 files / 528 passed。随后发布非 draft、非 prerelease 的 [v0.1.0](https://github.com/qweqwe12382/sunsetguard-api-evidence/releases/tag/v0.1.0)，tag 指向该提交。Release 附件包含 `sunsetguard-local-trial.tgz`（241990 字节，SHA-256 与本节表格一致）、`SHA256SUMS.txt` 和 `bundle.json`，GitHub 页面同时显示自动生成的两个源码包。仓库主页实际识别为 MIT，private vulnerability reporting 保持启用。
+
+申请表尚未代用户提交。申请人仍需在[官方表单](https://openai.com/form/codex-for-oss/)填写真实姓名、ChatGPT 账号邮箱与 Organization ID，并在提交前自行确认当时的[项目条款](https://developers.openai.com/codex/codex-for-oss-terms)。这些个人字段不会写入公开仓库；第三方采用证据仍未验证，也不会被虚构成项目活跃度。
 
 ### 2026-09-16 · 公开仓库加固与完整复验
 
