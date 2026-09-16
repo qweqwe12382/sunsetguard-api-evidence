@@ -9,8 +9,8 @@
 - 目标复核（2026-09-12 晚）：用户确认的“可本地试用”阶段目标已达成；PROJECT_REPORT 的 P3 维护者真实任务门槛仍未验证，不能把工程交付完成写成整个项目落地或全部产品验收完成。最新独立复验见 artifacts/local-install-J5vlT6/checks.json。
 - 最近完成任务：T10 本地交付补充；首个解析诊断位置、带编译产物的私有目录包与独立运行验收。原有明确清单、批量 CLI、缓存、离线重放及 Markdown 保持可用。
 - 产品源码：单目标单目录/批量 CLI、本地/公开 GitHub 快照、四类引用证据、有限配置归因、隔离分析线程、JSON/文本/Markdown、安全外部报告、固定样本评估与有界缓存。
-- 项目 typecheck/lint/build：2026-09-16 全部实际通过；测试 36 个文件，526 项通过、1 项因 Windows 文件符号链接创建权限拒绝而跳过。
-- 独立本地包：artifacts/local-trial-TwPPS8，180 文件 / 240820 字节，SHA-256 `79e5abc258cc1421352121edf98cb41dcc41f157700b0c373e05eafaa27ffdf3`；工作区外生产依赖安装与 20 项 CLI/Worker/缓存验收通过，见 artifacts/local-install-kBws6g/checks.json。需要 Node 24/pnpm 11.7，未捆绑运行时或依赖目录。
+- 项目 typecheck/lint/build：2026-09-16 全部实际通过；测试 36 个文件，527 项通过、1 项因 Windows 文件符号链接创建权限拒绝而跳过。
+- 独立本地包：artifacts/local-trial-oXUESF，180 文件 / 241213 字节，SHA-256 `0d340ed19095ba57d7f49203c08e8d2077d4c644783f21afc38e873f3c8305db`；工作区外生产依赖安装与 20 项 CLI/Worker/缓存验收通过，见 artifacts/local-install-If3Mi2/checks.json。需要 Node 24/pnpm 11.7，未捆绑运行时或依赖目录。
 - 外部 API 实际验证：T09 单仓库和 T10 两个固定仓库的匿名 GitHub metadata/commit/tree/archive 获取成功；不代表发现服务、生产 SLA 或异常网络场景均已实测。
 - 真实下游扫描：T07 的 3 仓库 / 6 选定文件审计保留；T10 真实 CLI 获取 rc-util/reactstrap 共 601 个文件，默认 461 eligible / 460 analyzed / 1 parse failed；两仓库 unknown+partial，在线与离线结果一致。独立人工精度审计未运行，不作为通用准确率。
 - 第三方维护者试用：未验证。
@@ -26,6 +26,7 @@
 - 修复报告 hard-link 成功后校验或 staging 清理失败的回滚：只有输出父目录身份仍可信且目标仍是本次文件时才删除；并发替换文件和被替换父目录不会被越界清理。
 - CLI 缺少 `--repos` / `--package` / `--symbol` 时准确指出缺项；初始化 cache 位于受保护输入内时归为无效配置并退出 2，运行期 I/O 错误仍保留内部错误语义。
 - 本地 snapshot API 的六类限制只允许降低默认上限。实现对每个配置值只读取一次，拒绝 undefined、非正安全整数和放大值，避免带状态 getter 的二次读取绕过。
+- 首轮远端 Linux CI 暴露本地目录枚举顺序不稳定：资源截断可能在不同文件系统选择不同文件。现改为每个目录完整枚举后按名称排序；当前目录在 entry 上限前无法完整枚举时不输出任意前缀，避免平台相关的证据和 contentHash。
 - 增加 `pnpm run check`、Linux/Windows GitHub Actions、CONTRIBUTING、SECURITY、CHANGELOG、PR 模板和三类 Issue 表单。CI 的 checkout 与 pnpm setup 固定到已核对的不可变 commit，token 权限仅 contents:read，依赖安装继续使用冻结锁文件并关闭生命周期脚本。
 - SPEC 中报告写入改为与实现一致的 atomic create-if-absent，不再写成覆盖替换；README 保持简短入口并链接测试、贡献、安全和变更文档。`.pnpm-store/` 纳入忽略规则。
 
@@ -34,20 +35,22 @@
 | 命令/检查 | 结果 | 证据 |
 |---|---|---|
 | `pnpm install --frozen-lockfile --ignore-scripts` | passed | 退出 0；锁文件一致，未运行生命周期脚本 |
-| `pnpm run check` | passed with skip | 退出 0；typecheck、lint、build 通过；36 files / 526 passed / 1 skipped，共 527 |
-| `pnpm run bundle:local` | passed | 退出 0；180 文件 / 240820 字节；SHA-256 如上 |
-| `pnpm run verify:local artifacts/local-trial-TwPPS8` | passed | 退出 0；工作区外离线生产依赖安装与 20 checks 全通过 |
+| `pnpm run check` | passed with skip | 退出 0；typecheck、lint、build 通过；36 files / 527 passed / 1 skipped，共 528 |
+| `pnpm run bundle:local` | passed | 退出 0；180 文件 / 241213 字节；SHA-256 如上 |
+| `pnpm run verify:local artifacts/local-trial-oXUESF` | passed | 退出 0；工作区外离线生产依赖安装与 20 checks 全通过 |
 | `pnpm audit --prod --registry https://registry.npmjs.org` | passed | 退出 0；No known vulnerabilities found；仅覆盖当前 registry advisory 数据 |
 | 独立只读集成审查 | passed | 归因隐私、缓存、写入竞态、CLI、limit getter、CI SHA 和安全联系流程复核后无阻断项 |
-| GitHub Actions 双平台运行 | not-run at record time | workflow 已加入；需推送后以远端实际结果为准 |
+| GitHub Actions 首轮双平台运行 | failed | run 35050528885：Windows 全通过；Ubuntu 因目录顺序假设和大小写测试假设 2 项失败，促成本轮确定性修复 |
 
-普通 Codex 隔离账户中的一次定向缓存测试因 Windows 用户目录祖先 `realpath` 权限出现 15 项环境失败；未将其写成产品通过。随后在正常主机权限运行完整 `pnpm run check`，结果为上述 526 passed / 1 skipped。跳过项仍是 Windows 无符号链接创建权限环境的既有用例。
+此前普通 Codex 隔离账户中的一次定向缓存测试因 Windows 用户目录祖先 `realpath` 权限出现 15 项环境失败；未将其写成产品通过。随后在正常主机权限运行完整 `pnpm run check`，当时结果为 526 passed / 1 skipped。
+
+确定性修复后的首轮本机完整复跑有 1 项 remote Worker 生命周期用例在 10 秒处偶发超时；该用例随即单独 6/6 通过，第二次完整 `pnpm run check` 为 36 files / 526 passed / 1 skipped。独立复核后又补充“后续目录 entry 超限仍保留此前证据”的回归测试：相关 snapshot 测试 20/20 通过。受限账户下的完整复跑因系统临时目录祖先权限产生 29 项 cache I/O 环境失败；在正常主机权限重跑同一 `pnpm run check` 后为 36 files / 527 passed / 1 skipped。所有失败均保留记录，未改写为首次通过；跳过项仍是 Windows 无符号链接创建权限环境的既有用例。修复后的 GitHub Actions 结果需以后续提交实际运行结果为准。
 
 本轮不改变 schemaVersion、analysisProfile、analyzerVersion 或 ESM ruleSetVersion；仅 attributionVersion 变化并使旧分析缓存不命中，raw snapshot cache 仍可复核后用于重算。没有升级依赖、执行下游代码、安装下游依赖、发布 npm 包、创建 Release 或声称第三方采用。
 
 已知边界：Node 路径 API 的身份检查不能提供针对完全控制输出目录且持续竞态的 OS 级原子隔离；许可证和版权主体仍需项目所有者选择；公开仓库的 GitHub private vulnerability reporting 设置尚未启用；远端 CI、其他平台长期运行、独立人工精度复核和真实维护者使用仍以实际证据为准。
 
-下一项：完成本次提交与远端 CI 核验；随后在申请开源项目赞助前确认许可证，并取得一个真实维护者调查任务与人工反馈，不用下载量、测试数或公开仓库状态替代采用证据。
+下一项：提交确定性枚举修复并核验后续远端 CI；随后在申请开源项目赞助前确认许可证，并取得一个真实维护者调查任务与人工反馈，不用下载量、测试数或公开仓库状态替代采用证据。
 
 ### 2026-09-12 · GitHub 私有仓库上传
 

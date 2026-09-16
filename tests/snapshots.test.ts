@@ -106,9 +106,9 @@ describe("captureLocalSnapshot", () => {
   });
 
   it("retains already-read files and records resource limits", async () => {
+    await write("c.ts", "ccc");
     await write("a.ts", "a");
     await write("b.ts", "bb");
-    await write("c.ts", "ccc");
 
     const fileLimit = await captureLocalSnapshot(testRoot, { limits: { maxFiles: 2 } });
     const byteLimit = await captureLocalSnapshot(testRoot, { limits: { maxTotalBytes: 3 } });
@@ -120,8 +120,22 @@ describe("captureLocalSnapshot", () => {
     expect(gapCodes(fileLimit)).toContain("RESOURCE_LIMIT");
     expect(byteLimit.files.map((file) => file.path)).toEqual(["a.ts", "b.ts"]);
     expect(gapCodes(byteLimit)).toContain("RESOURCE_LIMIT");
-    expect(entryLimit.files.map((file) => file.path)).toEqual(["a.ts", "b.ts"]);
+    expect(entryLimit.files).toEqual([]);
+    expect(entryLimit.inventory.observedEntries).toBe(3);
     expect(gapCodes(entryLimit)).toContain("RESOURCE_LIMIT");
+  });
+
+  it("keeps evidence from completed directories when a later directory exceeds the entry limit", async () => {
+    await write("a.ts", "kept");
+    await write("z-dir/one.ts", "one");
+    await write("z-dir/two.ts", "two");
+
+    const result = await captureLocalSnapshot(testRoot, { limits: { maxEntries: 3 } });
+
+    expect(result.status).toBe("partial");
+    expect(result.files.map((file) => file.path)).toEqual(["a.ts"]);
+    expect(result.inventory.observedEntries).toBe(4);
+    expect(gapCodes(result)).toContain("RESOURCE_LIMIT");
   });
 
   it("enforces per-file bytes and directory depth without discarding earlier evidence", async () => {
@@ -273,14 +287,17 @@ describe("captureLocalSnapshot", () => {
     }
   });
 
-  it("applies Windows directory exclusions case-insensitively and does not echo untrusted limit keys", async () => {
+  it("applies the declared platform directory case policy and does not echo untrusted limit keys", async () => {
     await write("NODE_MODULES/canary.ts", "export const escaped = true;\n");
 
     const result = await captureLocalSnapshot(testRoot);
-    expect(result.files).toEqual([]);
     expect(result.scope.directoryCaseSensitive).toBe(process.platform !== "win32");
     if (process.platform === "win32") {
+      expect(result.files).toEqual([]);
       expect(result.inventory.excludedDirectories).toBe(1);
+    } else {
+      expect(result.files.map(file => file.path)).toEqual(["NODE_MODULES/canary.ts"]);
+      expect(result.inventory.excludedDirectories).toBe(0);
     }
 
     await expect(captureLocalSnapshot(testRoot, {

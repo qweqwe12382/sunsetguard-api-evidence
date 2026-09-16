@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { constants as fsConstants } from "node:fs";
+import { constants as fsConstants, type Dirent } from "node:fs";
 import { lstat, open, opendir, realpath } from "node:fs/promises";
 import { isAbsolute, relative, resolve, sep } from "node:path";
 
@@ -277,10 +277,21 @@ export async function captureLocalSnapshot(
           gaps.push(gap("SNAPSHOT_CHANGED", "A directory changed identity before enumeration."));
           continue;
         }
+        const entries: Dirent[] = [];
         for await (const entry of directory) {
           checkInterrupted();
           inventory.observedEntries += 1;
           if (inventory.observedEntries > scope.limits.maxEntries) throw new ScanInterrupted("entries");
+          entries.push(entry);
+        }
+        entries.sort((left, right) => left.name < right.name ? -1 : left.name > right.name ? 1 : 0);
+        if (!sameIdentity(currentStats, await lstat(current.absolutePath)) ||
+            !(await verifyPathChain(root, rootIdentity, current.absolutePath))) {
+          gaps.push(gap("SNAPSHOT_CHANGED", "A directory changed identity during enumeration."));
+          continue;
+        }
+        for (const entry of entries) {
+          checkInterrupted();
           const absolutePath = resolve(current.absolutePath, entry.name);
           const relativePath = normalizedRelative(root, absolutePath);
           if (relativePath === undefined || relativePath === "") {

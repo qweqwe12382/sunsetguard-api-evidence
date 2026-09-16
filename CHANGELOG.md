@@ -15,6 +15,7 @@ SunsetGuard is not yet published as a package. This file records user-visible re
 - Failed report publication cleans up its own linked output when file and parent identities remain trustworthy.
 - Missing CLI options identify the actual option, and unsafe initial cache placement exits as invalid configuration.
 - Local snapshot limit overrides can only lower the built-in resource ceilings.
+- Local snapshot traversal sorts each fully enumerated directory before applying file and byte limits, so bounded results do not depend on operating-system directory order.
 
 ### Changed
 
