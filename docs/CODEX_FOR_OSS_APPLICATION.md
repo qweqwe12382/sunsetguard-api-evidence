@@ -34,13 +34,21 @@ The response stays within the form's 500-character limit. It relies on ecosystem
 
 ### How will you use API credits for your project?
 
-> We will use API credits only for maintaining SunsetGuard: triaging public issues, reviewing pull requests against source-isolation and result-safety rules, proposing bounded synthetic regression fixtures, summarizing CI failures, and drafting release notes. Human review remains required. We will not send private downstream source, secrets, local paths, or user reports to the API, and will not use program benefits to review code we do not own or lack permission to review.
+> Codex has already been part of SunsetGuard’s maintenance workflow: reviewing threat boundaries, turning product invariants into regression tests, investigating cross-platform failures, auditing release hygiene, and drafting maintainer documentation. API credits would extend this to issue triage, PR review, bounded synthetic fixtures, CI failure analysis, and release notes. Human review stays mandatory, and we will not send private downstream source, secrets, local paths, or unauthorized code.
 
 This plan limits program-funded model use to the SunsetGuard repository and authorized maintainer workflows. SunsetGuard's normal static analysis remains local and deterministic.
 
+### Why does your project need Codex Security?
+
+> SunsetGuard reads untrusted repositories under strict isolation and produces evidence for API deprecation decisions. Codex Security would help review root confinement, symlink handling, archive extraction, compiler-host boundaries, cache identity, JSON output isolation, and secret/path redaction; add regression tests; and triage disclosures. We would use it only on SunsetGuard and code we are authorized to review, with maintainer verification before fixes or releases.
+
+This field appears after selecting **Codex Security** and stays within the form's 500-character limit.
+
 ### Anything else we should know?
 
-> SunsetGuard is intentionally conservative: not-detected never means migrated or safe to remove, and partial/unknown states remain visible. The repository ships MIT-licensed source and a checksum-verified local trial bundle, with contribution, security, maintainer, and release documentation. Current benchmark labels are provisional and third-party adoption is not yet verified; program support would be used to obtain real maintainer feedback and independently reviewed evidence.
+> OpenAI models have been especially useful in developing SunsetGuard because it combines compiler analysis, security boundaries, cross-platform behavior, and user-facing claims. Codex helped inspect implementation against the specification, identify gaps, strengthen tests, verify Linux/Windows release results, and clean public release content. This produced a more reviewable OSS project, while deterministic analysis and human approval remain the final authority.
+
+The response describes observed use during development without replacing deterministic analysis or human approval. The repository's early-stage adoption limits remain stated in the qualification response and evidence sections below.
 
 ## Evidence links
 

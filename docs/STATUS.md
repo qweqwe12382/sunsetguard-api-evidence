@@ -73,4 +73,4 @@
 
 ## Codex for Open Source 申请
 
-申请字段、可粘贴回答和提交检查清单见 [CODEX_FOR_OSS_APPLICATION.md](CODEX_FOR_OSS_APPLICATION.md)。公开仓库不保存申请人的真实姓名、ChatGPT 账号邮箱或 OpenAI Organization ID。仓库准备完成不等于申请已提交或获批。
+申请字段、可粘贴回答和提交检查清单见 [CODEX_FOR_OSS_APPLICATION.md](CODEX_FOR_OSS_APPLICATION.md)。2026-09-16 已按当前官方表单复核字段，并补充 Codex Security 理由以及 Codex 在威胁边界审查、回归测试、跨平台排错和发布复核中的实际使用说明。公开仓库不保存申请人的真实姓名、ChatGPT 账号邮箱或 OpenAI Organization ID。仓库准备完成不等于申请已提交或获批。
